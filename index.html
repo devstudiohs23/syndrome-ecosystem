@@ -4,6 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SYNDROME — Ecosistema de Software & Automatización</title>
+  <meta name="description" content="Plataforma oficial de automatización inteligente y control remoto (WebSISS Remote & WebSISS Bot PC) para inscripciones universitarias UMSS." />
+  <meta name="theme-color" content="#050506" />
+
+  <!-- Vista previa optimizada para compartir enlace en WhatsApp y redes -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="SYNDROME" />
+  <meta property="og:title" content="SYNDROME — Ecosistema de Software & Automatización" />
+  <meta property="og:description" content="Automatización inteligente y control remoto para inscripciones universitarias (UMSS). Descarga WebSISS Remote y WebSISS Bot PC." />
+
+  <!-- Favicon SVG Geométrico "S" Monocromático -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23050506'/%3E%3Cpolygon points='32,6 54,19 45,25 32,17 19,25 32,32 54,45 32,58 10,45 19,39 32,47 45,39 32,32 10,19' fill='none' stroke='%23FFFFFF' stroke-width='2.8'/%3E%3Ccircle cx='32' cy='32' r='2.5' fill='%23FFFFFF'/%3E%3C/svg%3E" />
 
   <!-- Google Fonts: Silkscreen (Pixel-Tech elegante), Space Grotesk (Geométrica limpia) y JetBrains Mono (Telemetría) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -229,6 +240,15 @@
       box-shadow: 0 12px 30px -10px rgba(255, 255, 255, 0.08);
     }
 
+    /* Contenedor Blueprint para capturas pendientes de PC */
+    .blueprint-placeholder {
+      background-color: #070709;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+
     /* Animación de entrada por scroll */
     .reveal-item {
       opacity: 0;
@@ -330,10 +350,10 @@
          ====================================================================== -->
     <section id="inicio" class="text-center max-w-3xl mx-auto mb-12 sm:mb-16 reveal-item">
       <!-- Indicador técnico superior -->
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/15 bg-white/[0.03] mb-6">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-white/15 bg-white/[0.03] mb-6">
         <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
         <span class="font-mono text-[10px] sm:text-xs tracking-[0.2em] text-zinc-300 uppercase">
-          SISTEMA CENTRAL // NÚCLEO ACTIVO v2.6
+          SISTEMA CENTRAL // FASE BETA v1.0
         </span>
       </div>
 
@@ -448,7 +468,7 @@
 
             <!-- Etiqueta de compilación -->
             <span class="font-mono text-[10px] px-2.5 py-1 rounded border border-white/15 bg-white/[0.03] text-zinc-300 shrink-0">
-              APK // v1.0
+              APK // BETA
             </span>
           </div>
 
@@ -543,7 +563,7 @@
 
             <!-- Etiqueta de compilación -->
             <span class="font-mono text-[10px] px-2.5 py-1 rounded border border-white/15 bg-white/[0.03] text-zinc-300 shrink-0">
-              EXE // v1.0
+              EXE // BETA
             </span>
           </div>
 
@@ -782,7 +802,7 @@
               type="button" 
               id="btn-run-sim"
               onclick="runTelemetrySimulation()"
-              class="font-pixel text-[10px] px-3 py-1 rounded border border-white bg-white text-void hover:bg-zinc-200 transition-colors cursor-pointer"
+              class="font-mono font-bold text-[10px] sm:text-[11px] tracking-wider px-3 py-1 rounded border border-white bg-white text-void hover:bg-zinc-200 transition-colors cursor-pointer"
             >
               ▶ EJECUTAR SIMULACIÓN
             </button>
@@ -812,11 +832,16 @@
           </div>
         </div>
 
-        <!-- Vista Previa de Interfaz (Capturas Reales) -->
+        <!-- Vista Previa de Interfaz (Capturas Reales o Marcos Blueprint Beta) -->
         <div>
-          <h4 class="font-pixel text-xs sm:text-sm text-white tracking-wider mb-3 flex items-center gap-2">
-            <span class="text-zinc-400">//</span> VISTA PREVIA DE INTERFAZ
-          </h4>
+          <div class="flex items-center justify-between mb-3">
+            <h4 class="font-pixel text-xs sm:text-sm text-white tracking-wider flex items-center gap-2">
+              <span class="text-zinc-400">//</span> VISTA PREVIA DE INTERFAZ
+            </h4>
+            <span id="dossier-gallery-hint" class="font-mono text-[10px] text-zinc-400">
+              Clic para ampliar
+            </span>
+          </div>
           <div id="dossier-screenshots" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <!-- Se rellena dinámicamente con JS -->
           </div>
@@ -837,13 +862,30 @@
   </div>
 
   <!-- ========================================================================
-       MODAL 2: HUD TÁCTICO DE DESCARGA ("DESCARGAR")
+       MODAL 2: VISOR LIGHTBOX DE CAPTURAS EN ALTA CALIDAD
+       ======================================================================== -->
+  <div id="lightbox-modal" class="fixed inset-0 z-[60] hidden items-center justify-center p-4 bg-black/95 backdrop-blur-lg opacity-0 transition-opacity duration-250" aria-hidden="true">
+    <div id="lightbox-panel" class="relative max-w-2xl w-full flex flex-col items-center transform scale-95 transition-transform duration-250">
+      <div class="w-full flex items-center justify-between px-4 py-2.5 mb-3 rounded-xl border border-white/20 bg-[#0A0A0D]">
+        <span id="lightbox-caption" class="font-mono text-xs text-white tracking-wider">01. Vista Previa</span>
+        <button type="button" onclick="closeLightbox()" class="w-7 h-7 rounded-lg border border-white/20 hover:border-white flex items-center justify-center text-zinc-300 hover:text-white text-xs cursor-pointer" aria-label="Cerrar imagen">
+          ✕
+        </button>
+      </div>
+      <div class="w-full rounded-2xl border border-white/25 bg-void p-2 sm:p-3 shadow-[0_0_60px_rgba(255,255,255,0.08)] flex justify-center">
+        <img id="lightbox-img" src="" alt="Vista previa ampliada" class="max-h-[78vh] w-auto object-contain rounded-xl" />
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL 3: HUD TÁCTICO DE DESCARGA ("DESCARGAR" — FASE BETA)
        ======================================================================== -->
   <div id="download-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/85 backdrop-blur-md opacity-0 transition-opacity duration-300" aria-hidden="true">
     <div id="download-panel" class="relative w-full max-w-md rounded-2xl border border-white/30 bg-[#0A0A0D] p-6 shadow-[0_0_60px_rgba(255,255,255,0.08)] transform scale-95 transition-transform duration-300">
       <div class="flex items-center justify-between mb-4">
         <span class="font-pixel text-xs tracking-widest text-white uppercase">
-          TRANSFERENCIA SEGURA
+          MÓDULO DE DESCARGA
         </span>
         <span id="dl-status-badge" class="font-mono text-[10px] px-2 py-0.5 border border-white/25 text-zinc-300">
           VERIFICANDO
@@ -851,33 +893,44 @@
       </div>
 
       <div class="rounded-xl border border-white/15 bg-black/70 p-4 mb-5">
-        <div class="font-mono text-xs text-zinc-400">ARCHIVO PAQUETE:</div>
+        <div class="font-mono text-xs text-zinc-400">PAQUETE SELECCIONADO:</div>
         <div id="dl-filename" class="font-mono text-sm text-white font-semibold mt-0.5 break-all">
-          WebSISS-Bot-PC-v1.0-Setup.exe
+          WebSISS-Bot-PC-v1.0-Windows.exe
         </div>
         <div class="flex items-center justify-between text-[11px] font-mono text-zinc-500 mt-2">
-          <span id="dl-size">REPOSITORIO: GITHUB RELEASES</span>
-          <span>SHA-256: VERIFICADO</span>
+          <span id="dl-size">REPOSITORIO: syndrome-ecosystem</span>
+          <span>ESTADO: FASE BETA</span>
         </div>
       </div>
 
       <!-- Barra de Progreso Monocromática -->
       <div class="mb-2 flex justify-between font-mono text-xs">
-        <span id="dl-step-text" class="text-zinc-300">Estableciendo enlace...</span>
+        <span id="dl-step-text" class="text-zinc-300">Preparando paquete...</span>
         <span id="dl-percent" class="text-white font-bold">0%</span>
       </div>
-      <div class="w-full h-2.5 bg-zinc-900 rounded-full overflow-hidden border border-white/15 mb-6">
+      <div class="w-full h-2.5 bg-zinc-900 rounded-full overflow-hidden border border-white/15 mb-5">
         <div id="dl-progress-bar" class="h-full bg-white transition-all duration-150" style="width: 0%"></div>
+      </div>
+
+      <!-- Contenedor de Enlace (Placeholder en Fase Beta o Enlace Real cuando lo agregues) -->
+      <div id="dl-placeholder-box" class="hidden rounded-xl border border-dashed border-white/30 bg-white/[0.03] p-3.5 mb-5 text-center">
+        <div class="font-mono text-xs text-white font-semibold tracking-wider">
+          ENLACE DE DESCARGA AQUÍ (PRÓXIMAMENTE)
+        </div>
+        <p class="text-[11px] text-zinc-400 mt-1">
+          Compilación final en preparación dentro de <span class="text-zinc-200 font-mono">syndrome-ecosystem</span>.
+        </p>
       </div>
 
       <div class="flex flex-col sm:flex-row justify-end gap-3">
         <a 
           id="dl-github-link"
-          href="https://github.com/devstudiohs23/WEBSISS-BOT/releases/latest" 
+          href="#" 
           target="_blank"
+          rel="noopener noreferrer"
           class="hidden btn-metallic-primary btn-sheen rounded-xl py-2.5 px-5 font-pixel text-xs uppercase font-bold text-center"
         >
-          IR A DESCARGA OFICIAL
+          DESCARGAR AHORA
         </a>
         <button type="button" onclick="closeDownloadModal()" class="btn-metallic-secondary rounded-xl py-2.5 px-5 font-pixel text-xs uppercase cursor-pointer">
           CERRAR HUD
@@ -887,7 +940,7 @@
   </div>
 
   <!-- ========================================================================
-       MODAL 3: CANAL DE SOPORTE TÉCNICO & TOKENS ("SOPORTE")
+       MODAL 4: CANAL DE SOPORTE TÉCNICO & TOKENS ("SOPORTE")
        ======================================================================== -->
   <div id="support-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/85 backdrop-blur-md opacity-0 transition-opacity duration-300" aria-hidden="true">
     <div id="support-panel" class="relative w-full max-w-md rounded-2xl border border-white/25 bg-[#0A0A0D] p-6 shadow-2xl transform scale-95 transition-transform duration-300">
@@ -896,7 +949,7 @@
         <button type="button" onclick="closeSupportModal()" class="w-8 h-8 rounded-lg border border-white/15 hover:border-white flex items-center justify-center text-zinc-400 hover:text-white cursor-pointer">✕</button>
       </div>
       <p class="text-sm text-zinc-300 leading-relaxed mb-4">
-        ¿Necesitas adquirir un combo de <strong class="text-white">tokens / llaves de acceso</strong> o asistencia para vincular <strong class="text-white">WEBSISS REMOTE</strong> con <strong class="text-white">WEBSISS BOT PC</strong>? Contáctame directamente por WhatsApp.
+        ¿Necesitas adquirir <strong class="text-white">tokens / llaves de acceso</strong> o asistencia para vincular <strong class="text-white">WEBSISS REMOTE</strong> con <strong class="text-white">WEBSISS BOT PC</strong>? Contáctame directamente por WhatsApp.
       </p>
       <div class="rounded-xl border border-white/15 bg-black/60 p-4 space-y-3 mb-5 font-mono text-xs">
         <div class="flex items-center justify-between">
@@ -912,6 +965,7 @@
         <a 
           href="https://wa.me/59177836344" 
           target="_blank" 
+          rel="noopener noreferrer"
           class="flex-1 btn-metallic-primary btn-sheen rounded-xl py-3 px-4 font-pixel text-xs uppercase font-bold text-center cursor-pointer"
         >
           ABRIR WHATSAPP
@@ -924,7 +978,7 @@
   </div>
 
   <!-- ========================================================================
-       LÓGICA INTERACTIVA (SPOTLIGHT, EXPEDIENTES, SIMULADOR Y DESCARGAS)
+       LÓGICA INTERACTIVA (SPOTLIGHT, EXPEDIENTES, LIGHTBOX, SIMULADOR Y HUD)
        ======================================================================== -->
   <script>
     // 1. Efecto Spotlight dinámico que sigue el ratón sobre la cuadrícula
@@ -949,15 +1003,17 @@
     });
 
     // 3. Base de datos técnica completa de WEBSISS REMOTE y WEBSISS BOT PC
+    // NOTA: Cuando publiques los ejecutables en GitHub Releases, pega sus URLs en "downloadUrl"
     const SOFTWARE_DATA = {
       remote: {
         code: 'SYS-MOB // 01',
         title: 'WEBSISS REMOTE',
         subtitle: 'Aplicación Móvil Oficial — Android (APK)',
         description:
-          'WEBSISS REMOTE es el centro de mando móvil diseñado para darte control absoluto sobre el proceso de inscripción sin necesidad de estar pegado a la computadora. Conectada a la nube mediante Firebase, la app te permite guardar y gestionar tus credenciales del sistema SIS, definir las materias y grupos que deseas inscribir, administrar tu saldo de tokens y supervisar la consola de comandos de la PC en tiempo real. Si el servidor de la universidad se cae o la PC completa una tarea, la app te enviará una notificación push instantánea a tu pantalla de bloqueo.',
-        filename: 'WebSISS-Remote-v1.0-Official.apk',
-        size: '57.5 MB • Android',
+          'WEBSISS REMOTE es el centro de mando móvil diseñado para darte control absoluto sobre el proceso de inscripción sin necesidad de estar pegado a la computadora. Conectada a la nube mediante Firebase, la app te permite guardar y gestionar tus credenciales del sistema SIS, definir las materias y grupos que deseas inscribir, administrar tus tokens y supervisar la consola de comandos de la PC en tiempo real. Si el servidor de la universidad se cae o la PC completa una tarea, la app te enviará una notificación push instantánea a tu pantalla de bloqueo.',
+        filename: 'WebSISS-Remote-v1.0-Beta.apk',
+        size: 'Android 8.0+ • Fase Beta',
+        downloadUrl: '', // Ejemplo futuro: 'https://github.com/devstudiohs23/syndrome-ecosystem/releases/download/v1.0/WebSISS-Remote.apk'
         specs: [
           { label: 'PLATAFORMA', value: 'Android 8.0+' },
           { label: 'NUBE & SYNC', value: 'Firebase' },
@@ -988,7 +1044,8 @@
           { src: 'login.png', label: '01. Inicio de Sesión' },
           { src: 'config.png', label: '02. Configuración SIS' },
           { src: 'panel.png', label: '03. Panel de Control' }
-        ]
+        ],
+        placeholders: []
       },
       pc: {
         code: 'SYS-WIN // 02',
@@ -996,8 +1053,9 @@
         subtitle: 'Programa de Escritorio — Windows x64 (EXE)',
         description:
           'WEBSISS BOT PC es el motor ejecutable de alta velocidad para Windows que realiza todo el trabajo pesado de automatización. Diseñado con una interfaz idéntica a la app móvil pero potenciado con una consola de registros en tiempo real, el programa abre la página oficial de Websiss, ingresa tus datos, resuelve el CAPTCHA autónomamente y busca el cupo deseado sin descanso. Funciona en segundo plano sin ralentizar tu computadora y se vincula automáticamente con tu teléfono celular.',
-        filename: 'WebSISS-Bot-PC-v1.0-Windows.exe',
-        size: 'Windows 10 / 11',
+        filename: 'WebSISS-Bot-PC-v1.0-Beta.exe',
+        size: 'Windows 10/11 • Fase Beta',
+        downloadUrl: '', // Ejemplo futuro: 'https://github.com/devstudiohs23/syndrome-ecosystem/releases/download/v1.0/WebSISS-Bot-PC.exe'
         specs: [
           { label: 'PLATAFORMA', value: 'Windows 10/11' },
           { label: 'CAPTCHA', value: 'Auto-Resuelto' },
@@ -1027,10 +1085,18 @@
           { title: 'Doble Alerta de Éxito', desc: 'Notificación sonora en parlantes de la PC + Notificación instantánea en tu smartphone al asegurar tu materia.' },
           { title: 'Requisitos del Sistema', desc: 'Windows 10/11 y mantener la computadora encendida con acceso a Internet durante la jornada de inscripción.' }
         ],
-        screenshots: [
-          { src: 'panel.png', label: 'Consola & Panel de Control' },
-          { src: 'config.png', label: 'Targets Priorizados' },
-          { src: 'login.png', label: 'Vinculación Gmail' }
+        screenshots: [],
+        placeholders: [
+          {
+            code: 'WIN-UI // 01',
+            title: 'Interfaz Principal del Bot PC',
+            subtitle: 'Panel de configuración, targets y módulos laterales — Captura en preparación (Fase Beta)'
+          },
+          {
+            code: 'WIN-RUN // 02',
+            title: 'Ejecución y Consola en Tiempo Real',
+            subtitle: 'Monitoreo activo de CAPTCHA y búsqueda continua de cupos — Captura en preparación (Fase Beta)'
+          }
         ]
       }
     };
@@ -1082,19 +1148,53 @@
         </div>
       `).join('');
 
-      // Renderizar Capturas Reales
+      // Renderizar Capturas Reales (Remote) o Marcos Blueprint Beta (PC)
       const ssContainer = document.getElementById('dossier-screenshots');
-      ssContainer.innerHTML = data.screenshots.map(img => `
-        <div class="rounded-xl border border-white/15 bg-black/70 p-2 text-center" onerror="this.style.display='none'">
-          <img 
-            src="${img.src}" 
-            alt="${img.label}" 
-            class="w-full h-56 object-contain rounded-lg mb-2 bg-void"
-            onerror="this.parentElement.style.display='none'"
-          />
-          <span class="font-mono text-[10px] text-zinc-400">${img.label}</span>
-        </div>
-      `).join('');
+      const galleryHint = document.getElementById('dossier-gallery-hint');
+
+      if (data.screenshots && data.screenshots.length > 0) {
+        galleryHint.textContent = 'Clic en imagen para ampliar';
+        ssContainer.className = 'grid grid-cols-1 sm:grid-cols-3 gap-4';
+        ssContainer.innerHTML = data.screenshots.map(img => `
+          <button 
+            type="button"
+            onclick="openLightbox('${img.src}', '${img.label}')"
+            class="group rounded-xl border border-white/15 hover:border-white/60 bg-black/70 p-2 text-center transition-all cursor-pointer focus:outline-none"
+          >
+            <div class="relative overflow-hidden rounded-lg mb-2 bg-void">
+              <img 
+                src="${img.src}" 
+                alt="${img.label}" 
+                class="w-full h-56 object-contain transition-transform duration-300 group-hover:scale-105"
+                onerror="this.closest('button').style.display='none'"
+              />
+              <span class="absolute bottom-2 right-2 font-mono text-[9px] px-2 py-0.5 rounded bg-black/80 border border-white/25 text-white opacity-80 group-hover:opacity-100">
+                + AMPLIAR
+              </span>
+            </div>
+            <span class="font-mono text-[10px] text-zinc-300 group-hover:text-white">${img.label}</span>
+          </button>
+        `).join('');
+      } else if (data.placeholders && data.placeholders.length > 0) {
+        galleryHint.textContent = 'Fase Beta // En preparación';
+        ssContainer.className = 'grid grid-cols-1 sm:grid-cols-2 gap-4';
+        ssContainer.innerHTML = data.placeholders.map(ph => `
+          <div class="blueprint-placeholder rounded-xl border border-dashed border-white/25 p-5 flex flex-col items-center justify-center text-center min-h-[180px]">
+            <div class="w-10 h-10 rounded-lg border border-white/20 bg-white/[0.04] flex items-center justify-center mb-3">
+              <svg class="w-5 h-5 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <rect x="2" y="3" width="20" height="14" rx="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+              </svg>
+            </div>
+            <span class="font-mono text-[10px] px-2 py-0.5 rounded border border-white/20 text-zinc-300 mb-2">
+              ${ph.code}
+            </span>
+            <div class="font-mono text-xs text-white font-semibold">${ph.title}</div>
+            <p class="text-[11px] text-zinc-400 mt-1.5 leading-relaxed">${ph.subtitle}</p>
+          </div>
+        `).join('');
+      }
 
       // Reiniciar consola de telemetría
       if (simTimer) clearInterval(simTimer);
@@ -1132,7 +1232,35 @@
       }, 280);
     }
 
-    // 5. Simulador de consola en vivo dentro del Expediente Técnico
+    // 5. Visor Lightbox para ampliar imágenes
+    function openLightbox(src, label) {
+      const modal = document.getElementById('lightbox-modal');
+      const panel = document.getElementById('lightbox-panel');
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox-caption').textContent = label;
+
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      requestAnimationFrame(() => {
+        modal.classList.remove('opacity-0');
+        panel.classList.remove('scale-95');
+        panel.classList.add('scale-100');
+      });
+    }
+
+    function closeLightbox() {
+      const modal = document.getElementById('lightbox-modal');
+      const panel = document.getElementById('lightbox-panel');
+      modal.classList.add('opacity-0');
+      panel.classList.remove('scale-100');
+      panel.classList.add('scale-95');
+      setTimeout(() => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }, 220);
+    }
+
+    // 6. Simulador de consola en vivo dentro del Expediente Técnico
     function runTelemetrySimulation() {
       const data = SOFTWARE_DATA[currentDossierKey];
       const consoleEl = document.getElementById('telemetry-console');
@@ -1161,7 +1289,7 @@
       }, 420);
     }
 
-    // 6. Control del HUD de Descarga ("DESCARGAR")
+    // 7. Control del HUD de Descarga ("DESCARGAR" — Preparado para Fase Beta y Releases futuros)
     function startDownload(key) {
       const data = SOFTWARE_DATA[key];
       if (!data) return;
@@ -1169,12 +1297,14 @@
       if (dlTimer) clearInterval(dlTimer);
 
       const ghLink = document.getElementById('dl-github-link');
+      const placeholderBox = document.getElementById('dl-placeholder-box');
       ghLink.classList.add('hidden');
+      placeholderBox.classList.add('hidden');
 
       document.getElementById('dl-filename').textContent = data.filename;
-      document.getElementById('dl-size').textContent = `PAQUETE: ${data.size}`;
-      document.getElementById('dl-status-badge').textContent = 'CONECTANDO';
-      document.getElementById('dl-step-text').textContent = 'Conectando con GitHub Releases...';
+      document.getElementById('dl-size').textContent = `ENTORNO: ${data.size}`;
+      document.getElementById('dl-status-badge').textContent = 'VERIFICANDO';
+      document.getElementById('dl-step-text').textContent = 'Consultando estado de compilación...';
       document.getElementById('dl-percent').textContent = '0%';
       document.getElementById('dl-progress-bar').style.width = '0%';
 
@@ -1190,24 +1320,32 @@
 
       let progress = 0;
       dlTimer = setInterval(() => {
-        progress += Math.floor(Math.random() * 16) + 10;
+        progress += Math.floor(Math.random() * 18) + 12;
         if (progress >= 100) {
           progress = 100;
           clearInterval(dlTimer);
-          document.getElementById('dl-status-badge').textContent = 'LISTO';
-          document.getElementById('dl-step-text').textContent = 'Enlace oficial de GitHub habilitado.';
-          ghLink.classList.remove('hidden');
+
+          if (data.downloadUrl && data.downloadUrl.trim() !== '') {
+            document.getElementById('dl-status-badge').textContent = 'LISTO';
+            document.getElementById('dl-step-text').textContent = 'Enlace oficial verificado.';
+            ghLink.href = data.downloadUrl;
+            ghLink.classList.remove('hidden');
+          } else {
+            document.getElementById('dl-status-badge').textContent = 'FASE BETA';
+            document.getElementById('dl-step-text').textContent = 'Archivo pendiente de publicación.';
+            placeholderBox.classList.remove('hidden');
+          }
         } else if (progress > 55) {
-          document.getElementById('dl-status-badge').textContent = 'VERIFICANDO';
-          document.getElementById('dl-step-text').textContent = 'Comprobando última versión disponible...';
+          document.getElementById('dl-status-badge').textContent = 'ANALIZANDO';
+          document.getElementById('dl-step-text').textContent = 'Verificando repositorio syndrome-ecosystem...';
         } else {
           document.getElementById('dl-status-badge').textContent = 'ENLAZANDO';
-          document.getElementById('dl-step-text').textContent = 'Validando firma digital SYNDROME...';
+          document.getElementById('dl-step-text').textContent = 'Conectando con núcleo SYNDROME...';
         }
 
         document.getElementById('dl-percent').textContent = `${progress}%`;
         document.getElementById('dl-progress-bar').style.width = `${progress}%`;
-      }, 160);
+      }, 150);
     }
 
     function closeDownloadModal() {
@@ -1223,7 +1361,7 @@
       }, 250);
     }
 
-    // 7. Control del Modal de Soporte y copiado seguro al portapapeles
+    // 8. Control del Modal de Soporte y copiado moderno con respaldo móvil
     function openSupportModal() {
       const modal = document.getElementById('support-modal');
       const panel = document.getElementById('support-panel');
@@ -1250,12 +1388,20 @@
 
     function copySupportHandle(btn) {
       const text = '77836344';
-      const tempInput = document.createElement('input');
-      tempInput.value = text;
-      document.body.appendChild(tempInput);
-      tempInput.select();
-      document.execCommand('copy');
-      document.body.removeChild(tempInput);
+      const fallbackCopy = () => {
+        const tempInput = document.createElement('input');
+        tempInput.value = text;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+      };
+
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).catch(fallbackCopy);
+      } else {
+        fallbackCopy();
+      }
 
       const original = btn.textContent;
       btn.textContent = '✓ COPIADO';
@@ -1267,16 +1413,22 @@
     // Cerrar modales con tecla Escape o clic fuera del contenedor
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
+        const lightbox = document.getElementById('lightbox-modal');
+        if (!lightbox.classList.contains('hidden')) {
+          closeLightbox();
+          return;
+        }
         closeDossier();
         closeDownloadModal();
         closeSupportModal();
       }
     });
 
-    ['dossier-modal', 'download-modal', 'support-modal'].forEach((id) => {
+    ['dossier-modal', 'lightbox-modal', 'download-modal', 'support-modal'].forEach((id) => {
       const el = document.getElementById(id);
       el.addEventListener('click', (e) => {
         if (e.target === el) {
+          if (id === 'lightbox-modal') closeLightbox();
           if (id === 'dossier-modal') closeDossier();
           if (id === 'download-modal') closeDownloadModal();
           if (id === 'support-modal') closeSupportModal();
