@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SYNDROME — Ecosistema de Software & Automatización</title>
+
+  <!-- Google Fonts: Silkscreen (Pixel-Tech elegante), Space Grotesk (Geométrica limpia) y JetBrains Mono (Telemetría) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Silkscreen:wght@400;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            pixel: ['"Silkscreen"', 'monospace'],
+            sans: ['"Space Grotesk"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            void: '#050506',
+            obsidian: '#0B0B0D',
+            graphite: '#121215',
+            steel: '#1C1C21',
+            silver: '#A1A1AA',
+            platinum: '#E4E4E7',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* ==========================================================================
+       SISTEMA VISUAL MONOCROMÁTICO SYNDROME (100% BLANCO, NEGRO Y PLATA)
+       ========================================================================== */
+    :root {
+      --mouse-x: 50%;
+      --mouse-y: 25%;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #050506;
+      color: #FFFFFF;
+      font-family: 'Space Grotesk', sans-serif;
+      overflow-x: hidden;
+    }
+
+    ::selection {
+      background: #FFFFFF;
+      color: #050506;
+    }
+
+    /* Fondo arquitectónico de micro-cuadrícula estilo laboratorio de alta precisión */
+    .architectural-grid {
+      background-size: 48px 48px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    }
+
+    /* Iluminación radial dinámica que sigue el puntero en tono blanco/plata */
+    .spotlight-overlay {
+      background: radial-gradient(
+        650px circle at var(--mouse-x) var(--mouse-y),
+        rgba(255, 255, 255, 0.065),
+        rgba(255, 255, 255, 0.015) 40%,
+        transparent 75%
+      );
+    }
+
+    /* Resplandor blanco puro para el emblema principal S */
+    .emblem-glow {
+      filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.35)) drop-shadow(0 0 42px rgba(255, 255, 255, 0.12));
+      animation: floatEmblem 6s ease-in-out infinite;
+    }
+
+    @keyframes floatEmblem {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-6px); }
+    }
+
+    /* Tarjetas de Software con estética Obsidian y escaneo láser monocromático */
+    .syndrome-card {
+      position: relative;
+      background: linear-gradient(165deg, #101014 0%, #09090B 100%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                  border-color 0.35s ease,
+                  box-shadow 0.35s ease;
+      overflow: hidden;
+    }
+
+    .syndrome-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 255, 255, 0.42);
+      box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.9),
+                  0 0 30px rgba(255, 255, 255, 0.06);
+    }
+
+    /* Haz de escaneo láser (Scanner Sweep) al pasar el cursor sobre la tarjeta */
+    .scanner-beam {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.9) 50%, transparent 100%);
+      box-shadow: 0 0 18px 2px rgba(255, 255, 255, 0.45), 0 12px 32px rgba(255, 255, 255, 0.12);
+      top: -10%;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 20;
+    }
+
+    .syndrome-card:hover .scanner-beam {
+      animation: scanSweep 1.65s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    }
+
+    @keyframes scanSweep {
+      0% {
+        top: -5%;
+        opacity: 0;
+      }
+      15% {
+        opacity: 1;
+      }
+      85% {
+        opacity: 1;
+      }
+      100% {
+        top: 105%;
+        opacity: 0;
+      }
+    }
+
+    /* Soportes de esquina técnicos (Corner Brackets) */
+    .corner-bracket {
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      border-color: rgba(255, 255, 255, 0.22);
+      transition: border-color 0.3s ease, width 0.3s ease, height 0.3s ease;
+      pointer-events: none;
+    }
+    .syndrome-card:hover .corner-bracket {
+      border-color: #FFFFFF;
+      width: 16px;
+      height: 16px;
+    }
+    .corner-tl { top: 10px; left: 10px; border-top-width: 2px; border-left-width: 2px; }
+    .corner-tr { top: 10px; right: 10px; border-top-width: 2px; border-right-width: 2px; }
+    .corner-bl { bottom: 10px; left: 10px; border-bottom-width: 2px; border-left-width: 2px; }
+    .corner-br { bottom: 10px; right: 10px; border-bottom-width: 2px; border-right-width: 2px; }
+
+    /* Botón Metálico Primario (DESCARGAR) - Plata brillante / Blanco */
+    .btn-metallic-primary {
+      position: relative;
+      background: linear-gradient(180deg, #FFFFFF 0%, #D4D4D8 100%);
+      color: #050506;
+      border: 1px solid #FFFFFF;
+      overflow: hidden;
+      transition: all 0.25s ease;
+    }
+
+    .btn-metallic-primary:hover {
+      background: linear-gradient(180deg, #FFFFFF 0%, #F4F4F5 100%);
+      box-shadow: 0 0 24px rgba(255, 255, 255, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .btn-metallic-primary:active {
+      transform: translateY(1px);
+    }
+
+    /* Botón Metálico Secundario (VER MÁS) - Acero oscuro cepillado */
+    .btn-metallic-secondary {
+      position: relative;
+      background: linear-gradient(180deg, #1B1B20 0%, #0E0E11 100%);
+      color: #FFFFFF;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      overflow: hidden;
+      transition: all 0.25s ease;
+    }
+
+    .btn-metallic-secondary:hover {
+      border-color: #FFFFFF;
+      background: linear-gradient(180deg, #27272E 0%, #141418 100%);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.14);
+      transform: translateY(-1px);
+    }
+
+    /* Reflejo de luz diagonal en botones al pasar el cursor */
+    .btn-sheen::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -120%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+      transform: skewX(-25deg);
+      transition: left 0.55s ease;
+      pointer-events: none;
+    }
+
+    .btn-sheen:hover::after {
+      left: 160%;
+    }
+
+    /* Tarjetas de Características Principales */
+    .feature-card {
+      background: linear-gradient(180deg, #0E0E12 0%, #08080A 100%);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .feature-card:hover {
+      border-color: rgba(255, 255, 255, 0.38);
+      background: linear-gradient(180deg, #15151B 0%, #0B0B0E 100%);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px -10px rgba(255, 255, 255, 0.08);
+    }
+
+    /* Animación de entrada por scroll */
+    .reveal-item {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .reveal-item.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Línea de flujo de datos en el diagrama de arquitectura del modal */
+    .data-stream-line {
+      stroke-dasharray: 6 6;
+      animation: dashFlow 1.2s linear infinite;
+    }
+
+    @keyframes dashFlow {
+      to {
+        stroke-dashoffset: -24;
+      }
+    }
+
+    /* Scrollbar monocromática personalizada */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #050506;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #27272A;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #52525B;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col relative antialiased">
+
+  <!-- ========================================================================
+       CAPAS DE FONDO ARQUITECTÓNICO (MICRO-GRID + SPOTLIGHT MONOCROMÁTICO)
+       ======================================================================== -->
+  <div class="fixed inset-0 architectural-grid pointer-events-none z-0"></div>
+  <div class="fixed inset-0 spotlight-overlay pointer-events-none z-0"></div>
+  <!-- Viñeta perimetral oscura para profundidad clínica -->
+  <div class="fixed inset-0 pointer-events-none z-0" style="background: radial-gradient(circle at center, transparent 35%, rgba(0,0,0,0.82) 100%);"></div>
+
+  <!-- ========================================================================
+       BARRA DE NAVEGACIÓN FLOTANTE ESTILO PÍLDORA (NAVBAR)
+       ======================================================================== -->
+  <header class="sticky top-4 z-40 px-4 sm:px-6 lg:px-8 w-full">
+    <nav class="max-w-6xl mx-auto rounded-full border border-white/15 bg-black/75 backdrop-blur-xl px-5 sm:px-7 py-3 flex items-center justify-between shadow-[0_10px_40px_rgba(0,0,0,0.85)]">
+      <!-- Marca izquierda: Emblema geométrico S + SYNDROME -->
+      <a href="#inicio" class="flex items-center gap-3 group focus:outline-none">
+        <div class="w-8 h-8 flex items-center justify-center rounded-lg border border-white/20 bg-white/5 group-hover:border-white/60 transition-colors">
+          <!-- Emblema SVG Geométrico "S" (Escala Navbar) -->
+          <svg class="w-5 h-5 text-white" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="32,4 56,18 46,24 32,16 18,24 32,32 56,46 32,60 8,46 18,40 32,48 46,40 32,32 8,18" stroke="currentColor" stroke-width="2.5" fill="rgba(255,255,255,0.08)"/>
+            <line x1="32" y1="4" x2="32" y2="16" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="32" y1="48" x2="32" y2="60" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="32" cy="32" r="2.5" fill="#FFFFFF"/>
+          </svg>
+        </div>
+        <span class="font-pixel text-base sm:text-lg tracking-wider text-white group-hover:text-zinc-200 transition-colors">
+          SYNDROME
+        </span>
+      </a>
+
+      <!-- Enlaces derecha -->
+      <div class="flex items-center gap-5 sm:gap-8 text-xs sm:text-sm font-medium">
+        <a href="#inicio" class="text-white border-b border-white pb-0.5 transition-opacity hover:opacity-80">
+          Inicio
+        </a>
+        <a href="#software" class="text-zinc-400 hover:text-white transition-colors hidden sm:inline-block">
+          Software
+        </a>
+        <a href="#caracteristicas" class="text-zinc-400 hover:text-white transition-colors hidden md:inline-block">
+          Arquitectura
+        </a>
+        <button type="button" onclick="openSupportModal()" class="text-zinc-400 hover:text-white transition-colors cursor-pointer">
+          Soporte
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ========================================================================
+       CONTENIDO PRINCIPAL
+       ======================================================================== -->
+  <main class="flex-grow relative z-10 max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 pb-16">
+
+    <!-- ======================================================================
+         SECCIÓN HERO CENTRAL (EMBLEMA S + TÍTULO + DESCRIPCIÓN)
+         ====================================================================== -->
+    <section id="inicio" class="text-center max-w-3xl mx-auto mb-12 sm:mb-16 reveal-item">
+      <!-- Indicador técnico superior -->
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/15 bg-white/[0.03] mb-6">
+        <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+        <span class="font-mono text-[10px] sm:text-xs tracking-[0.2em] text-zinc-300 uppercase">
+          SISTEMA CENTRAL // NÚCLEO ACTIVO v2.6
+        </span>
+      </div>
+
+      <!-- Emblema Geométrico "S" de Alta Precisión -->
+      <div class="flex justify-center mb-5">
+        <div class="relative w-24 h-24 sm:w-28 sm:h-28 flex items-center justify-center">
+          <!-- Anillo orbital técnico sutil -->
+          <svg class="absolute inset-0 w-full h-full text-white/20" viewBox="0 0 120 120" fill="none">
+            <circle cx="60" cy="60" r="56" stroke="currentColor" stroke-width="1" stroke-dasharray="4 6"/>
+            <line x1="60" y1="0" x2="60" y2="8" stroke="#FFFFFF" stroke-width="1.5"/>
+            <line x1="60" y1="112" x2="60" y2="120" stroke="#FFFFFF" stroke-width="1.5"/>
+            <line x1="0" y1="60" x2="8" y2="60" stroke="#FFFFFF" stroke-width="1.5"/>
+            <line x1="112" y1="60" x2="120" y2="60" stroke="#FFFFFF" stroke-width="1.5"/>
+          </svg>
+
+          <!-- Logotipo Vectorial Principal "S" Wireframe & Sólido -->
+          <svg class="w-20 h-20 sm:w-24 sm:h-24 emblem-glow" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="syndromeSilver" x1="15" y1="10" x2="85" y2="90" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#FFFFFF"/>
+                <stop offset="50%" stop-color="#D4D4D8"/>
+                <stop offset="100%" stop-color="#71717A"/>
+              </linearGradient>
+              <linearGradient id="syndromeCore" x1="20" y1="20" x2="80" y2="80" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="rgba(255,255,255,0.22)"/>
+                <stop offset="100%" stop-color="rgba(255,255,255,0.03)"/>
+              </linearGradient>
+            </defs>
+
+            <!-- Hexágono estructural de soporte -->
+            <polygon points="50,6 88,28 88,72 50,94 12,72 12,28" stroke="rgba(255,255,255,0.22)" stroke-width="1" fill="none"/>
+
+            <!-- Geometría principal de la letra "S" afilada -->
+            <polygon 
+              points="50,14 78,30 65,38 50,29 33,39 67,59 50,86 22,70 35,62 50,71 67,61 33,41" 
+              fill="url(#syndromeCore)" 
+              stroke="url(#syndromeSilver)" 
+              stroke-width="2.4" 
+              stroke-linejoin="miter"
+            />
+
+            <!-- Trazos internos de plano técnico (Blueprint) -->
+            <line x1="50" y1="14" x2="50" y2="29" stroke="#FFFFFF" stroke-width="1.2"/>
+            <line x1="50" y1="71" x2="50" y2="86" stroke="#FFFFFF" stroke-width="1.2"/>
+            <line x1="33" y1="39" x2="67" y2="61" stroke="rgba(255,255,255,0.45)" stroke-width="1"/>
+            <line x1="65" y1="38" x2="35" y2="62" stroke="rgba(255,255,255,0.25)" stroke-width="1" stroke-dasharray="2 2"/>
+
+            <!-- Nodos de precisión en vértices clave -->
+            <circle cx="50" cy="14" r="2.2" fill="#FFFFFF"/>
+            <circle cx="78" cy="30" r="2.2" fill="#FFFFFF"/>
+            <circle cx="33" cy="39" r="2" fill="#FFFFFF"/>
+            <circle cx="50" cy="50" r="2.8" fill="#FFFFFF"/>
+            <circle cx="67" cy="61" r="2" fill="#FFFFFF"/>
+            <circle cx="22" cy="70" r="2.2" fill="#FFFFFF"/>
+            <circle cx="50" cy="86" r="2.2" fill="#FFFFFF"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Título Principal Pixel-Tech -->
+      <h1 class="font-pixel text-3xl sm:text-5xl md:text-[52px] tracking-[0.08em] text-white mb-3 drop-shadow-[0_0_25px_rgba(255,255,255,0.2)]">
+        SYNDROME
+      </h1>
+
+      <!-- Subtítulo Espaciado -->
+      <p class="font-mono text-xs sm:text-sm tracking-[0.26em] text-zinc-300 uppercase mb-3">
+        INNOVACIÓN &nbsp;·&nbsp; TECNOLOGÍA &nbsp;·&nbsp; SIN LÍMITES
+      </p>
+
+      <!-- Descripción -->
+      <p class="text-sm sm:text-base text-zinc-400 max-w-xl mx-auto leading-relaxed">
+        Plataforma oficial de automatización inteligente y control remoto para inscripciones universitarias (UMSS).
+      </p>
+    </section>
+
+    <!-- ======================================================================
+         SECCIÓN DE 2 COLUMNAS: ECOSISTEMA DE APLICACIONES Y PROGRAMAS
+         ====================================================================== -->
+    <section id="software" class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 mb-16 sm:mb-20">
+
+      <!-- TARJETA 1 (IZQUIERDA): WEBSISS REMOTE (App Móvil) -->
+      <article class="syndrome-card rounded-2xl p-6 sm:p-8 flex flex-col justify-between reveal-item" data-software="remote">
+        <!-- Haz de escaneo láser animado -->
+        <div class="scanner-beam"></div>
+        <!-- Soportes de esquina técnicos -->
+        <span class="corner-bracket corner-tl"></span>
+        <span class="corner-bracket corner-tr"></span>
+        <span class="corner-bracket corner-bl"></span>
+        <span class="corner-bracket corner-br"></span>
+
+        <div>
+          <!-- Encabezado de la Tarjeta -->
+          <div class="flex items-start justify-between gap-4 pb-6 mb-6 border-b border-white/10">
+            <div class="flex items-center gap-4">
+              <!-- Icono Monocromático Smartphone -->
+              <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-white/[0.04] border border-white/20 flex items-center justify-center shrink-0 shadow-inner">
+                <svg class="w-6 h-6 sm:w-7 sm:h-7 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="6" y="2" width="12" height="20" rx="2.5" ry="2.5"></rect>
+                  <line x1="10" y1="5" x2="14" y2="5"></line>
+                  <circle cx="12" cy="18.5" r="0.8" fill="currentColor"></circle>
+                </svg>
+              </div>
+              <div>
+                <h2 class="font-pixel text-lg sm:text-xl tracking-wide text-white leading-tight">
+                  WEBSISS REMOTE
+                </h2>
+                <p class="text-xs sm:text-sm text-zinc-400 mt-1">
+                  Aplicación Móvil Oficial (Android)
+                </p>
+              </div>
+            </div>
+
+            <!-- Etiqueta de compilación -->
+            <span class="font-mono text-[10px] px-2.5 py-1 rounded border border-white/15 bg-white/[0.03] text-zinc-300 shrink-0">
+              APK // v1.0
+            </span>
+          </div>
+
+          <!-- Lista de Características con viñetas de estrella de 4 puntas (✦) -->
+          <ul class="space-y-3.5 text-sm sm:text-[15px] text-zinc-200 mb-8">
+            <li class="flex items-center gap-3">
+              <span class="text-white text-xs leading-none select-none">✦</span>
+              <span>Configuración remota de credenciales SIS y materias</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="text-white text-xs leading-none select-none">✦</span>
+              <span>Solicitud y gestión de tokens / llaves de acceso</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="text-white text-xs leading-none select-none">✦</span>
+              <span>Monitoreo del bot y capturas en tiempo real</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="text-white text-xs leading-none select-none">✦</span>
+              <span>Interfaz oscura monocromática de alto contraste</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="text-white text-xs leading-none select-none">✦</span>
+              <span>Alertas y notificaciones push instantáneas</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Botones de Acción Inferiores (VER MÁS y DESCARGAR) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+          <button 
+            type="button"
+            onclick="openDossier('remote')"
+            class="btn-metallic-secondary btn-sheen rounded-xl py-3.5 px-4 font-pixel text-xs tracking-wider uppercase flex items-center justify-center gap-2 cursor-pointer"
+          >
+            <svg class="w-4 h-4 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="9"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <circle cx="12" cy="16" r="0.8" fill="currentColor"></circle>
+            </svg>
+            <span>VER MÁS</span>
+          </button>
+
+          <button 
+            type="button"
+            onclick="startDownload('remote')"
+            class="btn-metallic-primary btn-sheen rounded-xl py-3.5 px-4 font-pixel text-xs tracking-wider uppercase flex items-center justify-center gap-2 cursor-pointer font-bold"
+          >
+            <svg class="w-4 h-4 text-void" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span>DESCARGAR</span>
+          </button>
+        </div>
+      </article>
+
+      <!-- TARJETA 2 (DERECHA): WEBSISS BOT PC (Programa de Escritorio) -->
+      <article class="syndrome-card rounded-2xl p-6 sm:p-8 flex flex-col justify-between reveal-item" style="transition-delay: 120ms;" data-software="pc">
+        <!-- Haz de escaneo láser animado -->
+        <div class="scanner-beam"></div>
+        <!-- Soportes de esquina técnicos -->
+        <span class="corner-bracket corner-tl"></span>
+        <span class="corner-bracket corner-tr"></span>
+        <span class="corner-bracket corner-bl"></span>
+        <span class="corner-bracket corner-br"></span>
+
+        <div>
+          <!-- Encabezado de la Tarjeta -->
+          <div class="flex items-start justify-between gap-4 pb-6 mb-6 border-b border-white/10">
+            <div class="flex items-center gap-4">
+              <!-- Icono Monocromático Monitor / Terminal Escritorio -->
+              <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-white/[0.04] border border-white/20 flex items-center justify-center shrink-0 shadow-inner">
+                <svg class="w-6 h-6 sm:w-7 sm:h-7 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                  <line x1="8" y1="21" x2="16" y2="21"></line>
+                  <line x1="12" y1="17" x2="12" y2="21"></line>
+                  <polyline points="7 8 10 10.5 7 13"></polyline>
+                  <line x1="12" y1="13" x2="16" y2="13"></line>
+                </svg>
+              </div>
+              <div>
+                <h2 class="font-pixel text-lg sm:text-xl tracking-wide text-white leading-tight">
+                  WEBSISS BOT PC
+                </h2>
+                <p class="text-xs sm:text-sm text-zinc-400 mt-1">
+                  Programa de Escritorio (Windows)
+                </p>
+              </div>
+            </div>
+
+            <!-- Etiqueta de compilación -->
+            <span class="font-mono text-[10px] px-2.5 py-1 rounded border border-white/15 bg-white/[0.03] text-zinc-300 shrink-0">
+              EXE // v1.0
+            </span>
+          </div>
+
+          <!-- Lista de Características con viñetas de estrella de 4 puntas (✦) -->
+          <ul class="space-y-3.5 text-sm sm:text-[15px] text-zinc-200 mb-8">
+            <li class="flex items-center gap-3">
+              <span class="text-white text-xs leading-none select-none">✦</span>
+              <span>Interfaz intuitiva con consola en tiempo real</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="text-white text-xs leading-none select-none">✦</span>
+              <span>Agarrador de materias y resolución de CAPTCHA</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="text-white text-xs leading-none select-none">✦</span>
+              <span>Vinculación mediante cuenta Gmail con la app</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="text-white text-xs leading-none select-none">✦</span>
+              <span>Priorización estricta y reingreso automático</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="text-white text-xs leading-none select-none">✦</span>
+              <span>Alerta sonora en PC y notificación al celular</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Botones de Acción Inferiores (VER MÁS y DESCARGAR) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+          <button 
+            type="button"
+            onclick="openDossier('pc')"
+            class="btn-metallic-secondary btn-sheen rounded-xl py-3.5 px-4 font-pixel text-xs tracking-wider uppercase flex items-center justify-center gap-2 cursor-pointer"
+          >
+            <svg class="w-4 h-4 text-zinc-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="9"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <circle cx="12" cy="16" r="0.8" fill="currentColor"></circle>
+            </svg>
+            <span>VER MÁS</span>
+          </button>
+
+          <button 
+            type="button"
+            onclick="startDownload('pc')"
+            class="btn-metallic-primary btn-sheen rounded-xl py-3.5 px-4 font-pixel text-xs tracking-wider uppercase flex items-center justify-center gap-2 cursor-pointer font-bold"
+          >
+            <svg class="w-4 h-4 text-void" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            <span>DESCARGAR</span>
+          </button>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- ======================================================================
+         SECCIÓN INFERIOR: CARACTERÍSTICAS PRINCIPALES (4 COLUMNAS MONOCROMO)
+         ====================================================================== -->
+    <section id="caracteristicas" class="reveal-item">
+      <div class="text-center mb-8 sm:mb-10">
+        <h2 class="font-pixel text-xl sm:text-2xl tracking-[0.1em] text-white uppercase">
+          CARACTERÍSTICAS PRINCIPALES
+        </h2>
+        <div class="w-16 h-[1px] bg-white/30 mx-auto mt-3"></div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+        
+        <!-- Característica 1: Rendimiento Optimizado -->
+        <div class="feature-card rounded-2xl p-6 text-center flex flex-col items-center justify-center group">
+          <div class="w-12 h-12 rounded-xl border border-white/15 bg-white/[0.03] flex items-center justify-center mb-4 group-hover:border-white/50 group-hover:scale-105 transition-all">
+            <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill="rgba(255,255,255,0.12)"></polygon>
+            </svg>
+          </div>
+          <h3 class="font-semibold text-sm sm:text-base text-white tracking-wide">
+            Rendimiento Optimizado
+          </h3>
+          <p class="text-xs text-zinc-400 mt-2 leading-relaxed">
+            Búsqueda continua en bucle y resolución rápida sin ralentizar tu equipo.
+          </p>
+        </div>
+
+        <!-- Característica 2: Seguridad Garantizada -->
+        <div class="feature-card rounded-2xl p-6 text-center flex flex-col items-center justify-center group">
+          <div class="w-12 h-12 rounded-xl border border-white/15 bg-white/[0.03] flex items-center justify-center mb-4 group-hover:border-white/50 group-hover:scale-105 transition-all">
+            <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="rgba(255,255,255,0.12)"></path>
+              <polyline points="9 12 11 14 15 10"></polyline>
+            </svg>
+          </div>
+          <h3 class="font-semibold text-sm sm:text-base text-white tracking-wide">
+            Seguridad Garantizada
+          </h3>
+          <p class="text-xs text-zinc-400 mt-2 leading-relaxed">
+            Credenciales cifradas en tu contenedor privado de Firebase y llaves únicas.
+          </p>
+        </div>
+
+        <!-- Característica 3: Actualizaciones Constantes -->
+        <div class="feature-card rounded-2xl p-6 text-center flex flex-col items-center justify-center group">
+          <div class="w-12 h-12 rounded-xl border border-white/15 bg-white/[0.03] flex items-center justify-center mb-4 group-hover:border-white/50 group-hover:scale-105 transition-all">
+            <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 4 23 10 17 10"></polyline>
+              <polyline points="1 20 1 14 7 14"></polyline>
+              <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+            </svg>
+          </div>
+          <h3 class="font-semibold text-sm sm:text-base text-white tracking-wide">
+            Actualizaciones Constantes
+          </h3>
+          <p class="text-xs text-zinc-400 mt-2 leading-relaxed">
+            Mejoras continuas y adaptación inmediata ante cambios en WebSISS.
+          </p>
+        </div>
+
+        <!-- Característica 4: Soporte Especializado -->
+        <div class="feature-card rounded-2xl p-6 text-center flex flex-col items-center justify-center group">
+          <div class="w-12 h-12 rounded-xl border border-white/15 bg-white/[0.03] flex items-center justify-center mb-4 group-hover:border-white/50 group-hover:scale-105 transition-all">
+            <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
+              <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" fill="rgba(255,255,255,0.12)"></path>
+            </svg>
+          </div>
+          <h3 class="font-semibold text-sm sm:text-base text-white tracking-wide">
+            Soporte Especializado
+          </h3>
+          <p class="text-xs text-zinc-400 mt-2 leading-relaxed">
+            Atención directa por WhatsApp para activación de tokens y configuración.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================
+       PIE DE PÁGINA (FOOTER)
+       ======================================================================== -->
+  <footer class="relative z-10 border-t border-white/10 bg-black/60 backdrop-blur-md py-6 px-4 text-center">
+    <p class="font-mono text-xs text-zinc-500 tracking-wide">
+      SYNDROME © 2026. Todos los derechos reservados — Desarrollado por DevStudio HS
+    </p>
+  </footer>
+
+  <!-- ========================================================================
+       MODAL 1: EXPEDIENTE TÉCNICO INTERACTIVO ("VER MÁS" + GUÍA + CAPTURAS)
+       ======================================================================== -->
+  <div id="dossier-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md opacity-0 transition-opacity duration-300" aria-hidden="true">
+    <div id="dossier-panel" class="relative w-full max-w-3xl rounded-2xl border border-white/25 bg-[#0A0A0D] shadow-[0_0_80px_rgba(0,0,0,0.95)] overflow-hidden transform scale-95 transition-transform duration-300">
+      
+      <!-- Línea superior brillante -->
+      <div class="h-[2px] w-full bg-gradient-to-r from-transparent via-white to-transparent"></div>
+
+      <!-- Cabecera del Modal -->
+      <div class="flex items-center justify-between px-5 sm:px-6 py-4 border-b border-white/10 bg-white/[0.02]">
+        <div class="flex items-center gap-3">
+          <span class="font-mono text-[10px] sm:text-[11px] px-2 py-0.5 border border-white/30 text-white uppercase tracking-widest">
+            EXPEDIENTE TÉCNICO
+          </span>
+          <span id="dossier-code" class="font-mono text-xs text-zinc-400">SYS-01</span>
+        </div>
+        <button type="button" onclick="closeDossier()" class="w-8 h-8 rounded-lg border border-white/15 hover:border-white flex items-center justify-center text-zinc-400 hover:text-white transition-colors cursor-pointer" aria-label="Cerrar">
+          ✕
+        </button>
+      </div>
+
+      <!-- Cuerpo del Modal -->
+      <div class="p-5 sm:p-6 max-h-[84vh] overflow-y-auto space-y-6">
+        
+        <!-- Título y Descripción Detallada -->
+        <div>
+          <h3 id="dossier-title" class="font-pixel text-xl sm:text-2xl text-white tracking-wide">WEBSISS REMOTE</h3>
+          <p id="dossier-subtitle" class="text-xs font-mono text-zinc-400 mt-1 uppercase tracking-wider">Módulo Móvil de Control y Telemetría</p>
+          <p id="dossier-desc" class="text-sm text-zinc-300 mt-3 leading-relaxed"></p>
+        </div>
+
+        <!-- Cuadrícula de Especificaciones Técnicas -->
+        <div id="dossier-specs" class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <!-- Se rellena dinámicamente con JS -->
+        </div>
+
+        <!-- Visualizador de Arquitectura Sincronizada (Móvil <-> Puente SYNDROME <-> PC) -->
+        <div class="rounded-xl border border-white/15 bg-black/60 p-4">
+          <div class="flex items-center justify-between mb-3">
+            <span class="font-mono text-[10px] sm:text-[11px] uppercase tracking-widest text-zinc-400">
+              ARQUITECTURA DE SINCRONIZACIÓN EN VIVO
+            </span>
+            <span class="font-mono text-[10px] text-white border border-white/20 px-2 py-0.5 rounded">
+              FIREBASE CLOUD
+            </span>
+          </div>
+          <div class="flex items-center justify-between gap-2 text-center py-2">
+            <!-- Nodo Móvil -->
+            <div class="flex-1 p-2.5 rounded-lg border border-white/20 bg-white/[0.03]">
+              <div class="font-pixel text-[10px] sm:text-[11px] text-white">REMOTE APP</div>
+              <div class="font-mono text-[9px] sm:text-[10px] text-zinc-400 mt-0.5">Android Client</div>
+            </div>
+            <!-- Flujo de datos animado -->
+            <svg class="w-10 sm:w-20 h-6 shrink-0" viewBox="0 0 80 24" fill="none">
+              <line x1="2" y1="9" x2="78" y2="9" stroke="#FFFFFF" stroke-width="1.5" class="data-stream-line"/>
+              <line x1="78" y1="15" x2="2" y2="15" stroke="#71717A" stroke-width="1.5" class="data-stream-line"/>
+            </svg>
+            <!-- Nodo Central -->
+            <div class="px-3 py-2.5 rounded-lg border border-white bg-white text-void font-bold">
+              <div class="font-pixel text-[10px] sm:text-[11px]">SYNDROME</div>
+              <div class="font-mono text-[9px] uppercase">Bridge Core</div>
+            </div>
+            <!-- Flujo de datos animado -->
+            <svg class="w-10 sm:w-20 h-6 shrink-0" viewBox="0 0 80 24" fill="none">
+              <line x1="2" y1="9" x2="78" y2="9" stroke="#FFFFFF" stroke-width="1.5" class="data-stream-line"/>
+              <line x1="78" y1="15" x2="2" y2="15" stroke="#71717A" stroke-width="1.5" class="data-stream-line"/>
+            </svg>
+            <!-- Nodo PC -->
+            <div class="flex-1 p-2.5 rounded-lg border border-white/20 bg-white/[0.03]">
+              <div class="font-pixel text-[10px] sm:text-[11px] text-white">BOT PC</div>
+              <div class="font-mono text-[9px] sm:text-[10px] text-zinc-400 mt-0.5">Windows Engine</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Consola Interactiva de Telemetría en Vivo -->
+        <div class="rounded-xl border border-white/15 bg-[#050506] overflow-hidden">
+          <div class="flex flex-wrap items-center justify-between gap-2 px-4 py-2.5 border-b border-white/10 bg-white/[0.02]">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-white"></span>
+              <span class="font-mono text-[10px] sm:text-[11px] text-zinc-300">CONSOLA DE TELEMETRÍA // PRUEBA DE FLUJO</span>
+            </div>
+            <button 
+              type="button" 
+              id="btn-run-sim"
+              onclick="runTelemetrySimulation()"
+              class="font-pixel text-[10px] px-3 py-1 rounded border border-white bg-white text-void hover:bg-zinc-200 transition-colors cursor-pointer"
+            >
+              ▶ EJECUTAR SIMULACIÓN
+            </button>
+          </div>
+          <div id="telemetry-console" class="p-4 font-mono text-xs text-zinc-300 h-36 overflow-y-auto space-y-1.5 leading-relaxed">
+            <div class="text-zinc-500">// Sistema en espera. Presiona "EJECUTAR SIMULACIÓN" para observar el protocolo en acción...</div>
+          </div>
+        </div>
+
+        <!-- Guía de Uso Paso a Paso -->
+        <div class="rounded-xl border border-white/15 bg-white/[0.02] p-4 sm:p-5">
+          <h4 class="font-pixel text-xs sm:text-sm text-white tracking-wider mb-4 flex items-center gap-2">
+            <span class="text-zinc-400">//</span> GUÍA DE USO PASO A PASO
+          </h4>
+          <ol id="dossier-steps" class="space-y-3 text-xs sm:text-sm text-zinc-300">
+            <!-- Se rellena dinámicamente con JS -->
+          </ol>
+        </div>
+
+        <!-- Puntos Clave e Importantes -->
+        <div class="rounded-xl border border-white/15 bg-black/50 p-4 sm:p-5">
+          <h4 class="font-pixel text-xs sm:text-sm text-white tracking-wider mb-4 flex items-center gap-2">
+            <span class="text-zinc-400">//</span> PUNTOS CLAVE E IMPORTANTES
+          </h4>
+          <div id="dossier-keypoints" class="grid grid-cols-1 gap-3">
+            <!-- Se rellena dinámicamente con JS -->
+          </div>
+        </div>
+
+        <!-- Vista Previa de Interfaz (Capturas Reales) -->
+        <div>
+          <h4 class="font-pixel text-xs sm:text-sm text-white tracking-wider mb-3 flex items-center gap-2">
+            <span class="text-zinc-400">//</span> VISTA PREVIA DE INTERFAZ
+          </h4>
+          <div id="dossier-screenshots" class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <!-- Se rellena dinámicamente con JS -->
+          </div>
+        </div>
+
+        <!-- Acciones del Modal -->
+        <div class="flex flex-col sm:flex-row items-center justify-end gap-3 pt-3 border-t border-white/10">
+          <button type="button" onclick="closeDossier()" class="w-full sm:w-auto btn-metallic-secondary rounded-xl py-3 px-6 font-pixel text-xs uppercase cursor-pointer">
+            CERRAR
+          </button>
+          <button type="button" id="dossier-download-btn" class="w-full sm:w-auto btn-metallic-primary btn-sheen rounded-xl py-3 px-6 font-pixel text-xs uppercase font-bold cursor-pointer">
+            DESCARGAR INSTALADOR
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL 2: HUD TÁCTICO DE DESCARGA ("DESCARGAR")
+       ======================================================================== -->
+  <div id="download-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/85 backdrop-blur-md opacity-0 transition-opacity duration-300" aria-hidden="true">
+    <div id="download-panel" class="relative w-full max-w-md rounded-2xl border border-white/30 bg-[#0A0A0D] p-6 shadow-[0_0_60px_rgba(255,255,255,0.08)] transform scale-95 transition-transform duration-300">
+      <div class="flex items-center justify-between mb-4">
+        <span class="font-pixel text-xs tracking-widest text-white uppercase">
+          TRANSFERENCIA SEGURA
+        </span>
+        <span id="dl-status-badge" class="font-mono text-[10px] px-2 py-0.5 border border-white/25 text-zinc-300">
+          VERIFICANDO
+        </span>
+      </div>
+
+      <div class="rounded-xl border border-white/15 bg-black/70 p-4 mb-5">
+        <div class="font-mono text-xs text-zinc-400">ARCHIVO PAQUETE:</div>
+        <div id="dl-filename" class="font-mono text-sm text-white font-semibold mt-0.5 break-all">
+          WebSISS-Bot-PC-v1.0-Setup.exe
+        </div>
+        <div class="flex items-center justify-between text-[11px] font-mono text-zinc-500 mt-2">
+          <span id="dl-size">REPOSITORIO: GITHUB RELEASES</span>
+          <span>SHA-256: VERIFICADO</span>
+        </div>
+      </div>
+
+      <!-- Barra de Progreso Monocromática -->
+      <div class="mb-2 flex justify-between font-mono text-xs">
+        <span id="dl-step-text" class="text-zinc-300">Estableciendo enlace...</span>
+        <span id="dl-percent" class="text-white font-bold">0%</span>
+      </div>
+      <div class="w-full h-2.5 bg-zinc-900 rounded-full overflow-hidden border border-white/15 mb-6">
+        <div id="dl-progress-bar" class="h-full bg-white transition-all duration-150" style="width: 0%"></div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row justify-end gap-3">
+        <a 
+          id="dl-github-link"
+          href="https://github.com/devstudiohs23/WEBSISS-BOT/releases/latest" 
+          target="_blank"
+          class="hidden btn-metallic-primary btn-sheen rounded-xl py-2.5 px-5 font-pixel text-xs uppercase font-bold text-center"
+        >
+          IR A DESCARGA OFICIAL
+        </a>
+        <button type="button" onclick="closeDownloadModal()" class="btn-metallic-secondary rounded-xl py-2.5 px-5 font-pixel text-xs uppercase cursor-pointer">
+          CERRAR HUD
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL 3: CANAL DE SOPORTE TÉCNICO & TOKENS ("SOPORTE")
+       ======================================================================== -->
+  <div id="support-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/85 backdrop-blur-md opacity-0 transition-opacity duration-300" aria-hidden="true">
+    <div id="support-panel" class="relative w-full max-w-md rounded-2xl border border-white/25 bg-[#0A0A0D] p-6 shadow-2xl transform scale-95 transition-transform duration-300">
+      <div class="flex items-center justify-between pb-4 mb-4 border-b border-white/10">
+        <h3 class="font-pixel text-base text-white tracking-wider">SOPORTE & TOKENS</h3>
+        <button type="button" onclick="closeSupportModal()" class="w-8 h-8 rounded-lg border border-white/15 hover:border-white flex items-center justify-center text-zinc-400 hover:text-white cursor-pointer">✕</button>
+      </div>
+      <p class="text-sm text-zinc-300 leading-relaxed mb-4">
+        ¿Necesitas adquirir un combo de <strong class="text-white">tokens / llaves de acceso</strong> o asistencia para vincular <strong class="text-white">WEBSISS REMOTE</strong> con <strong class="text-white">WEBSISS BOT PC</strong>? Contáctame directamente por WhatsApp.
+      </p>
+      <div class="rounded-xl border border-white/15 bg-black/60 p-4 space-y-3 mb-5 font-mono text-xs">
+        <div class="flex items-center justify-between">
+          <span class="text-zinc-400">ESTADO DEL SERVIDOR:</span>
+          <span class="text-white">● OPERATIVO (99.9%)</span>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-zinc-400">WHATSAPP DIRECTO:</span>
+          <span id="support-handle" class="text-white">+591 77836344</span>
+        </div>
+      </div>
+      <div class="flex flex-col sm:flex-row gap-3">
+        <a 
+          href="https://wa.me/59177836344" 
+          target="_blank" 
+          class="flex-1 btn-metallic-primary btn-sheen rounded-xl py-3 px-4 font-pixel text-xs uppercase font-bold text-center cursor-pointer"
+        >
+          ABRIR WHATSAPP
+        </a>
+        <button type="button" onclick="copySupportHandle(this)" class="btn-metallic-secondary rounded-xl py-3 px-4 font-pixel text-xs uppercase cursor-pointer">
+          COPIAR NÚMERO
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       LÓGICA INTERACTIVA (SPOTLIGHT, EXPEDIENTES, SIMULADOR Y DESCARGAS)
+       ======================================================================== -->
+  <script>
+    // 1. Efecto Spotlight dinámico que sigue el ratón sobre la cuadrícula
+    document.addEventListener('mousemove', (e) => {
+      document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
+      document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
+    });
+
+    // 2. Animación de aparición progresiva (Scroll Reveal)
+    document.addEventListener('DOMContentLoaded', () => {
+      const revealItems = document.querySelectorAll('.reveal-item');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      revealItems.forEach((item) => observer.observe(item));
+    });
+
+    // 3. Base de datos técnica completa de WEBSISS REMOTE y WEBSISS BOT PC
+    const SOFTWARE_DATA = {
+      remote: {
+        code: 'SYS-MOB // 01',
+        title: 'WEBSISS REMOTE',
+        subtitle: 'Aplicación Móvil Oficial — Android (APK)',
+        description:
+          'WEBSISS REMOTE es el centro de mando móvil diseñado para darte control absoluto sobre el proceso de inscripción sin necesidad de estar pegado a la computadora. Conectada a la nube mediante Firebase, la app te permite guardar y gestionar tus credenciales del sistema SIS, definir las materias y grupos que deseas inscribir, administrar tu saldo de tokens y supervisar la consola de comandos de la PC en tiempo real. Si el servidor de la universidad se cae o la PC completa una tarea, la app te enviará una notificación push instantánea a tu pantalla de bloqueo.',
+        filename: 'WebSISS-Remote-v1.0-Official.apk',
+        size: '57.5 MB • Android',
+        specs: [
+          { label: 'PLATAFORMA', value: 'Android 8.0+' },
+          { label: 'NUBE & SYNC', value: 'Firebase' },
+          { label: 'ALERTAS', value: 'Push FCM' },
+          { label: 'SEGURIDAD', value: 'SSL / TLS' }
+        ],
+        logs: [
+          '[00:00.12] Iniciando cliente móvil WEBSISS REMOTE...',
+          '[00:00.38] Autenticando cuenta Gmail sincronizada con Firebase Cloud...',
+          '[00:00.74] Cargando credenciales SIS y códigos dinámicos cifrados...',
+          '[00:01.15] Enviando orden remota -> INICIAR BOT en computadora vinculada.',
+          '[00:01.49] Señal confirmada por WEBSISS BOT PC. Monitoreo en vivo activo.',
+          '[00:01.92] ¡ALERTA PUSH RECIBIDA! Materia asegurada con éxito.'
+        ],
+        steps: [
+          { title: 'Registro e Inicio de Sesión', desc: 'Crea tu cuenta o ingresa con tu correo (el mismo que utilizarás obligatoriamente en el programa de PC para mantenerlos vinculados).' },
+          { title: 'Configuración de Datos SIS', desc: 'En la pestaña de Configuración, ingresa tu código SIS, contraseña, fecha de nacimiento y tus códigos dinámicos.' },
+          { title: 'Añadir Targets (Materias)', desc: 'Registra el código de materia y el número de grupo que deseas asegurar.' },
+          { title: 'Guardar y Sincronizar', desc: 'Presiona Guardar Configuración para subir tus datos cifrados a la nube.' },
+          { title: 'Control Remoto', desc: 'Desde el Panel de Control, presiona Iniciar Bot para enviar la orden de ejecución a tu computadora, o solicita capturas en vivo para verificar el estado actual.' }
+        ],
+        keyPoints: [
+          { title: 'Privacidad Total', desc: 'Tus credenciales SIS no se comparten con terceros; viajan cifradas hacia tu contenedor privado de Firebase.' },
+          { title: 'Sistema de Tokens y Adquisición Directa', desc: 'Para activar el servicio solicitas tu llave de acceso o token desde la tienda de la app eligiendo el combo que prefieras. El proceso de pago y atención se realiza de forma directa por WhatsApp (+591 77836344). Una vez realizado el pago, se te enviará y habilitará tu llave de acceso para iniciar el bot.' },
+          { title: 'Requisitos del Sistema', desc: 'Celular con Android 8.0 o superior con conexión a Internet activa.' }
+        ],
+        screenshots: [
+          { src: 'login.png', label: '01. Inicio de Sesión' },
+          { src: 'config.png', label: '02. Configuración SIS' },
+          { src: 'panel.png', label: '03. Panel de Control' }
+        ]
+      },
+      pc: {
+        code: 'SYS-WIN // 02',
+        title: 'WEBSISS BOT PC',
+        subtitle: 'Programa de Escritorio — Windows x64 (EXE)',
+        description:
+          'WEBSISS BOT PC es el motor ejecutable de alta velocidad para Windows que realiza todo el trabajo pesado de automatización. Diseñado con una interfaz idéntica a la app móvil pero potenciado con una consola de registros en tiempo real, el programa abre la página oficial de Websiss, ingresa tus datos, resuelve el CAPTCHA autónomamente y busca el cupo deseado sin descanso. Funciona en segundo plano sin ralentizar tu computadora y se vincula automáticamente con tu teléfono celular.',
+        filename: 'WebSISS-Bot-PC-v1.0-Windows.exe',
+        size: 'Windows 10 / 11',
+        specs: [
+          { label: 'PLATAFORMA', value: 'Windows 10/11' },
+          { label: 'CAPTCHA', value: 'Auto-Resuelto' },
+          { label: 'PRIORIDAD', value: 'Cola Estricta' },
+          { label: 'CONEXIÓN', value: 'Auto-Reingreso' }
+        ],
+        logs: [
+          '[00:00.08] Arrancando motor WEBSISS BOT PC (Vinculado vía Gmail)...',
+          '[00:00.29] Llave de acceso validada. Abriendo portal oficial WebSISS...',
+          '[00:00.61] Inyectando credenciales SIS y resolviendo CAPTCHA automáticamente...',
+          '[00:00.95] Buscando Materia N° 1 (Prioridad Alta). Recargando cupos en bucle...',
+          '[00:01.24] ¡CUPO DETECTADO! Inscribiendo grupo programado en Materia N° 1...',
+          '[00:01.41] ¡INSCRIPCIÓN LOGRADA! Emitiendo alerta sonora + Notificación Push.'
+        ],
+        steps: [
+          { title: 'Inicio de Sesión Vincular (Obligatorio)', desc: 'Abre el programa e inicia sesión exactamente con la misma cuenta de correo usada en tu app móvil para sincronizar ambos sistemas.' },
+          { title: 'Interfaz e Identidad Sincronizada', desc: 'Verás la misma interfaz que en tu celular, añadiendo un panel exclusivo donde observas en tiempo real cada acción que realiza el bot.' },
+          { title: 'Configuración y Control Flexible', desc: 'Puedes configurar materias e iniciar o pausar la ejecución de dos formas: directamente desde el programa en la PC o a distancia desde tu celular.' },
+          { title: 'Ingreso Automático y CAPTCHA', desc: 'Al presionar Iniciar, el bot abre la página oficial de Websiss, escribe tus credenciales automáticamente y resuelve el CAPTCHA para acceder a tu cuenta SIS.' },
+          { title: 'Navegación y Búsqueda Continua', desc: 'Se dirige al estado de inscripción, busca la materia y el grupo programado. Si el cupo no está disponible, recarga la página de inmediato y reintenta el proceso en bucle continuo hasta lograr agarrarlo.' },
+          { title: 'Priorización Estricta de Materias', desc: 'Si programas múltiples materias, el bot trabajará por orden de prioridad: buscará e intentará inscribir únicamente la Materia N° 1 hasta asegurarla; solo después de conseguirla pasará a buscar la Materia N° 2, y así sucesivamente.' },
+          { title: 'Auto-Recuperación y Notificaciones', desc: 'Si el servidor de la universidad te saca de la cuenta, el bot vuelve a ingresar de forma automática. Al lograr inscribir la materia, el programa se detiene, emite un sonido de alerta en la computadora y manda una notificación push a tu celular.' }
+        ],
+        keyPoints: [
+          { title: 'Resolución Autónoma de CAPTCHA', desc: 'Supera las barreras de inicio de sesión de la universidad sin intervención humana.' },
+          { title: 'Tolerancia a Caídas del Servidor', desc: 'Reingreso automático inmediato ante cierres de sesión inesperados o saturación de la página.' },
+          { title: 'Doble Alerta de Éxito', desc: 'Notificación sonora en parlantes de la PC + Notificación instantánea en tu smartphone al asegurar tu materia.' },
+          { title: 'Requisitos del Sistema', desc: 'Windows 10/11 y mantener la computadora encendida con acceso a Internet durante la jornada de inscripción.' }
+        ],
+        screenshots: [
+          { src: 'panel.png', label: 'Consola & Panel de Control' },
+          { src: 'config.png', label: 'Targets Priorizados' },
+          { src: 'login.png', label: 'Vinculación Gmail' }
+        ]
+      }
+    };
+
+    let currentDossierKey = 'remote';
+    let simTimer = null;
+    let dlTimer = null;
+
+    // 4. Control del Modal "VER MÁS" (Expediente Técnico)
+    function openDossier(key) {
+      currentDossierKey = key;
+      const data = SOFTWARE_DATA[key];
+      if (!data) return;
+
+      document.getElementById('dossier-code').textContent = data.code;
+      document.getElementById('dossier-title').textContent = data.title;
+      document.getElementById('dossier-subtitle').textContent = data.subtitle;
+      document.getElementById('dossier-desc').textContent = data.description;
+
+      // Renderizar especificaciones
+      const specsContainer = document.getElementById('dossier-specs');
+      specsContainer.innerHTML = data.specs.map(spec => `
+        <div class="rounded-xl border border-white/10 bg-white/[0.02] p-3">
+          <div class="font-mono text-[10px] text-zinc-500 uppercase">${spec.label}</div>
+          <div class="font-mono text-xs sm:text-sm text-white font-semibold mt-1">${spec.value}</div>
+        </div>
+      `).join('');
+
+      // Renderizar Guía de Uso Paso a Paso
+      const stepsContainer = document.getElementById('dossier-steps');
+      stepsContainer.innerHTML = data.steps.map((step, idx) => `
+        <li class="flex items-start gap-3">
+          <span class="font-mono text-xs px-2 py-0.5 rounded border border-white/20 bg-white/5 text-white shrink-0 mt-0.5">
+            0${idx + 1}
+          </span>
+          <div>
+            <strong class="text-white">${step.title}:</strong>
+            <span class="text-zinc-300"> ${step.desc}</span>
+          </div>
+        </li>
+      `).join('');
+
+      // Renderizar Puntos Clave
+      const kpContainer = document.getElementById('dossier-keypoints');
+      kpContainer.innerHTML = data.keyPoints.map(kp => `
+        <div class="rounded-lg border border-white/10 bg-white/[0.02] p-3">
+          <div class="font-mono text-xs text-white font-semibold mb-1">✦ ${kp.title}</div>
+          <p class="text-xs text-zinc-400 leading-relaxed">${kp.desc}</p>
+        </div>
+      `).join('');
+
+      // Renderizar Capturas Reales
+      const ssContainer = document.getElementById('dossier-screenshots');
+      ssContainer.innerHTML = data.screenshots.map(img => `
+        <div class="rounded-xl border border-white/15 bg-black/70 p-2 text-center" onerror="this.style.display='none'">
+          <img 
+            src="${img.src}" 
+            alt="${img.label}" 
+            class="w-full h-56 object-contain rounded-lg mb-2 bg-void"
+            onerror="this.parentElement.style.display='none'"
+          />
+          <span class="font-mono text-[10px] text-zinc-400">${img.label}</span>
+        </div>
+      `).join('');
+
+      // Reiniciar consola de telemetría
+      if (simTimer) clearInterval(simTimer);
+      document.getElementById('telemetry-console').innerHTML =
+        '<div class="text-zinc-500">// Sistema listo. Presiona "EJECUTAR SIMULACIÓN" para observar el flujo técnico...</div>';
+
+      // Vincular botón de descarga dentro del modal
+      const dlBtn = document.getElementById('dossier-download-btn');
+      dlBtn.onclick = () => {
+        closeDossier();
+        setTimeout(() => startDownload(key), 220);
+      };
+
+      const modal = document.getElementById('dossier-modal');
+      const panel = document.getElementById('dossier-panel');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      requestAnimationFrame(() => {
+        modal.classList.remove('opacity-0');
+        panel.classList.remove('scale-95');
+        panel.classList.add('scale-100');
+      });
+    }
+
+    function closeDossier() {
+      if (simTimer) clearInterval(simTimer);
+      const modal = document.getElementById('dossier-modal');
+      const panel = document.getElementById('dossier-panel');
+      modal.classList.add('opacity-0');
+      panel.classList.remove('scale-100');
+      panel.classList.add('scale-95');
+      setTimeout(() => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }, 280);
+    }
+
+    // 5. Simulador de consola en vivo dentro del Expediente Técnico
+    function runTelemetrySimulation() {
+      const data = SOFTWARE_DATA[currentDossierKey];
+      const consoleEl = document.getElementById('telemetry-console');
+      if (simTimer) clearInterval(simTimer);
+
+      consoleEl.innerHTML = '';
+      let index = 0;
+
+      simTimer = setInterval(() => {
+        if (index >= data.logs.length) {
+          clearInterval(simTimer);
+          const doneLine = document.createElement('div');
+          doneLine.className = 'text-white font-semibold pt-1';
+          doneLine.textContent = '✓ SECUENCIA COMPLETADA SIN ERRORES.';
+          consoleEl.appendChild(doneLine);
+          consoleEl.scrollTop = consoleEl.scrollHeight;
+          return;
+        }
+
+        const line = document.createElement('div');
+        line.className = index === data.logs.length - 1 ? 'text-white' : 'text-zinc-300';
+        line.textContent = data.logs[index];
+        consoleEl.appendChild(line);
+        consoleEl.scrollTop = consoleEl.scrollHeight;
+        index++;
+      }, 420);
+    }
+
+    // 6. Control del HUD de Descarga ("DESCARGAR")
+    function startDownload(key) {
+      const data = SOFTWARE_DATA[key];
+      if (!data) return;
+
+      if (dlTimer) clearInterval(dlTimer);
+
+      const ghLink = document.getElementById('dl-github-link');
+      ghLink.classList.add('hidden');
+
+      document.getElementById('dl-filename').textContent = data.filename;
+      document.getElementById('dl-size').textContent = `PAQUETE: ${data.size}`;
+      document.getElementById('dl-status-badge').textContent = 'CONECTANDO';
+      document.getElementById('dl-step-text').textContent = 'Conectando con GitHub Releases...';
+      document.getElementById('dl-percent').textContent = '0%';
+      document.getElementById('dl-progress-bar').style.width = '0%';
+
+      const modal = document.getElementById('download-modal');
+      const panel = document.getElementById('download-panel');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      requestAnimationFrame(() => {
+        modal.classList.remove('opacity-0');
+        panel.classList.remove('scale-95');
+        panel.classList.add('scale-100');
+      });
+
+      let progress = 0;
+      dlTimer = setInterval(() => {
+        progress += Math.floor(Math.random() * 16) + 10;
+        if (progress >= 100) {
+          progress = 100;
+          clearInterval(dlTimer);
+          document.getElementById('dl-status-badge').textContent = 'LISTO';
+          document.getElementById('dl-step-text').textContent = 'Enlace oficial de GitHub habilitado.';
+          ghLink.classList.remove('hidden');
+        } else if (progress > 55) {
+          document.getElementById('dl-status-badge').textContent = 'VERIFICANDO';
+          document.getElementById('dl-step-text').textContent = 'Comprobando última versión disponible...';
+        } else {
+          document.getElementById('dl-status-badge').textContent = 'ENLAZANDO';
+          document.getElementById('dl-step-text').textContent = 'Validando firma digital SYNDROME...';
+        }
+
+        document.getElementById('dl-percent').textContent = `${progress}%`;
+        document.getElementById('dl-progress-bar').style.width = `${progress}%`;
+      }, 160);
+    }
+
+    function closeDownloadModal() {
+      if (dlTimer) clearInterval(dlTimer);
+      const modal = document.getElementById('download-modal');
+      const panel = document.getElementById('download-panel');
+      modal.classList.add('opacity-0');
+      panel.classList.remove('scale-100');
+      panel.classList.add('scale-95');
+      setTimeout(() => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }, 250);
+    }
+
+    // 7. Control del Modal de Soporte y copiado seguro al portapapeles
+    function openSupportModal() {
+      const modal = document.getElementById('support-modal');
+      const panel = document.getElementById('support-panel');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      requestAnimationFrame(() => {
+        modal.classList.remove('opacity-0');
+        panel.classList.remove('scale-95');
+        panel.classList.add('scale-100');
+      });
+    }
+
+    function closeSupportModal() {
+      const modal = document.getElementById('support-modal');
+      const panel = document.getElementById('support-panel');
+      modal.classList.add('opacity-0');
+      panel.classList.remove('scale-100');
+      panel.classList.add('scale-95');
+      setTimeout(() => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }, 250);
+    }
+
+    function copySupportHandle(btn) {
+      const text = '77836344';
+      const tempInput = document.createElement('input');
+      tempInput.value = text;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempInput);
+
+      const original = btn.textContent;
+      btn.textContent = '✓ COPIADO';
+      setTimeout(() => {
+        btn.textContent = original;
+      }, 1800);
+    }
+
+    // Cerrar modales con tecla Escape o clic fuera del contenedor
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeDossier();
+        closeDownloadModal();
+        closeSupportModal();
+      }
+    });
+
+    ['dossier-modal', 'download-modal', 'support-modal'].forEach((id) => {
+      const el = document.getElementById(id);
+      el.addEventListener('click', (e) => {
+        if (e.target === el) {
+          if (id === 'dossier-modal') closeDossier();
+          if (id === 'download-modal') closeDownloadModal();
+          if (id === 'support-modal') closeSupportModal();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
