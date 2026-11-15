@@ -11,10 +11,10 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="SYNDROME" />
   <meta property="og:title" content="SYNDROME — Ecosistema de Software & Automatización" />
-  <meta property="og:description" content="Automatización inteligente y control remoto para inscripciones universitarias (UMSS). Descarga WebSISS Remote y WebSISS Bot PC." />
+  <meta property="og:description" content="Plataforma oficial de software, automatización inteligente y control remoto. Descarga WebSISS Remote y WebSISS Bot PC." />
 
-  <!-- Favicon SVG Geométrico "S" Monocromático -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23050506'/%3E%3Cpolygon points='32,6 54,19 45,25 32,17 19,25 32,32 54,45 32,58 10,45 19,39 32,47 45,39 32,32 10,19' fill='none' stroke='%23FFFFFF' stroke-width='2.8'/%3E%3Ccircle cx='32' cy='32' r='2.5' fill='%23FFFFFF'/%3E%3C/svg%3E" />
+  <!-- Favicon SVG Unificado: Emblema Hexagonal Segmentado "S" Mate Monocromático -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' rx='36' fill='%23050506'/%3E%3Cpolygon points='100,16 172,58 172,142 100,184 28,142 28,58' fill='%23121215' stroke='%23FFFFFF' stroke-width='7'/%3E%3Cpolygon points='100,44 148,62 134,72 100,62 76,76 138,108 138,132 100,156 52,138 66,128 100,138 124,124 62,92 62,68' fill='%23FFFFFF'/%3E%3C/svg%3E" />
 
   <!-- Google Fonts: Silkscreen (Pixel-Tech elegante), Space Grotesk (Geométrica limpia) y JetBrains Mono (Telemetría) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,7 +47,7 @@
 
   <style>
     /* ==========================================================================
-       SISTEMA VISUAL MONOCROMÁTICO SYNDROME (100% BLANCO, NEGRO Y PLATA)
+       SISTEMA VISUAL MONOCROMÁTICO SYNDROME (100% BLANCO, NEGRO Y PLATA MATE)
        ========================================================================== */
     :root {
       --mouse-x: 50%;
@@ -88,15 +88,62 @@
       );
     }
 
-    /* Resplandor blanco puro para el emblema principal S */
-    .emblem-glow {
-      filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.35)) drop-shadow(0 0 42px rgba(255, 255, 255, 0.12));
+    /* ==========================================================================
+       EMBLEMA HERO INTERACTIVO & MICRO-ANIMACIÓN DE EXPANSIÓN HEXAGONAL
+       ========================================================================== */
+    .hero-emblem-wrapper {
       animation: floatEmblem 6s ease-in-out infinite;
     }
 
     @keyframes floatEmblem {
       0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-6px); }
+      50% { transform: translateY(-5px); }
+    }
+
+    .hero-emblem-svg {
+      filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.16));
+      transition: filter 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .hero-emblem-wrapper:hover .hero-emblem-svg,
+    .hero-emblem-wrapper.is-activated .hero-emblem-svg {
+      filter: drop-shadow(0 0 28px rgba(255, 255, 255, 0.38));
+    }
+
+    .emblem-outer-armor {
+      transform-origin: 100px 100px;
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+    }
+
+    .hero-emblem-wrapper:hover .emblem-outer-armor,
+    .hero-emblem-wrapper.is-activated .emblem-outer-armor {
+      transform: scale(1.065);
+    }
+
+    .emblem-hex-chassis {
+      transform-origin: 100px 100px;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .hero-emblem-wrapper:hover .emblem-hex-chassis,
+    .hero-emblem-wrapper.is-activated .emblem-hex-chassis {
+      transform: scale(1.022);
+    }
+
+    .emblem-core-s {
+      transform-origin: 100px 100px;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .emblem-reticle-ring {
+      transform-origin: 60px 60px;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+    }
+
+    .hero-emblem-wrapper:hover .emblem-reticle-ring,
+    .hero-emblem-wrapper.is-activated .emblem-reticle-ring {
+      transform: rotate(30deg) scale(1.04);
+      opacity: 0.55;
     }
 
     /* Tarjetas de Software con estética Obsidian y escaneo láser monocromático */
@@ -249,6 +296,47 @@
       background-size: 20px 20px;
     }
 
+    /* Pestañas Monocromáticas (Tabs para FAQ y Changelog) */
+    .tab-pill {
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.02);
+      color: #A1A1AA;
+      transition: all 0.25s ease;
+    }
+    .tab-pill:hover {
+      border-color: rgba(255, 255, 255, 0.45);
+      color: #FFFFFF;
+    }
+    .tab-pill.active {
+      background: #FFFFFF;
+      color: #050506;
+      border-color: #FFFFFF;
+      font-weight: 700;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.22);
+    }
+
+    /* Acordeón FAQ */
+    .faq-item {
+      background: linear-gradient(180deg, #0E0E12 0%, #09090B 100%);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: border-color 0.25s ease;
+    }
+    .faq-item:hover,
+    .faq-item.open {
+      border-color: rgba(255, 255, 255, 0.35);
+    }
+    .faq-answer {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .faq-item.open .faq-answer {
+      grid-template-rows: 1fr;
+    }
+    .faq-answer-inner {
+      overflow: hidden;
+    }
+
     /* Animación de entrada por scroll */
     .reveal-item {
       opacity: 0;
@@ -294,6 +382,101 @@
 <body class="min-h-screen flex flex-col relative antialiased">
 
   <!-- ========================================================================
+       DEFINICIÓN VECTORIAL UNIFICADA DEL LOGO DE LA PÁGINA WEB (SYNDROME)
+       Emblema Hexagonal Segmentado + "S" Facetada Mate Monocromática
+       ======================================================================== -->
+  <svg class="hidden" aria-hidden="true">
+    <defs>
+      <symbol id="syndrome-emblem-layers" viewBox="0 0 200 200">
+        <!-- CAPA 1: ARMADURA EXTERIOR SEGMENTADA (Se expande en micro-animación Hero) -->
+        <g class="emblem-outer-armor">
+          <!-- Corona superior dividida en 2 biseles -->
+          <polygon points="100,4 126,19 122,25 100,12" fill="#FFFFFF"/>
+          <polygon points="100,4 74,19 78,25 100,12" fill="#A1A1AA"/>
+
+          <!-- Barras flotantes diagonales superiores -->
+          <polygon points="140,27 174,47 170,53 136,33" fill="#D4D4D8"/>
+          <polygon points="60,27 26,47 30,53 64,33" fill="#71717A"/>
+
+          <!-- Soportes laterales verticales (Izquierda y Derecha) -->
+          <polygon points="186,66 192,70 192,130 186,134" fill="#A1A1AA"/>
+          <polygon points="14,66 8,70 8,130 14,134" fill="#FFFFFF"/>
+
+          <!-- Barras flotantes diagonales inferiores -->
+          <polygon points="174,153 140,173 136,167 170,147" fill="#71717A"/>
+          <polygon points="26,153 60,173 64,167 30,147" fill="#D4D4D8"/>
+
+          <!-- Base inferior dividida en 2 biseles -->
+          <polygon points="100,196 126,181 122,175 100,188" fill="#71717A"/>
+          <polygon points="100,196 74,181 78,175 100,188" fill="#E4E4E7"/>
+        </g>
+
+        <!-- CAPA 2: CHASIS HEXAGONAL BISELADO MATE -->
+        <g class="emblem-hex-chassis">
+          <!-- Fondo interno oscuro del escudo -->
+          <polygon points="100,18 172,59 172,141 100,182 28,141 28,59" fill="#09090B"/>
+
+          <!-- Bisel exterior facetado (6 caras en tonos mate blanco/plata/grafito) -->
+          <!-- Cara Superior-Izquierda (Luz directa blanca) -->
+          <polygon points="100,18 28,59 42,67 100,34" fill="#FFFFFF"/>
+          <!-- Cara Superior-Derecha (Plata técnico) -->
+          <polygon points="100,18 172,59 158,67 100,34" fill="#A1A1AA"/>
+          <!-- Cara Vertical-Izquierda (Plata claro) -->
+          <polygon points="28,59 28,141 42,133 42,67" fill="#D4D4D8"/>
+          <!-- Cara Vertical-Derecha (Acero medio) -->
+          <polygon points="172,59 172,141 158,133 158,67" fill="#52525B"/>
+          <!-- Cara Inferior-Izquierda (Acero oscuro) -->
+          <polygon points="28,141 100,182 100,166 42,133" fill="#71717A"/>
+          <!-- Cara Inferior-Derecha (Sombra grafito) -->
+          <polygon points="172,141 100,182 100,166 158,133" fill="#27272A"/>
+
+          <!-- Muescas estructurales internas del hexágono (estilo armadura) -->
+          <polygon points="42,84 52,90 52,110 42,116" fill="#27272A" stroke="#71717A" stroke-width="1"/>
+          <polygon points="158,84 148,90 148,110 158,116" fill="#18181B" stroke="#52525B" stroke-width="1"/>
+
+          <!-- Contorno fino de alta precisión -->
+          <polygon points="100,18 172,59 172,141 100,182 28,141 28,59" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="1.2"/>
+          <polygon points="100,34 158,67 158,133 100,166 42,133 42,67" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="1"/>
+        </g>
+
+        <!-- CAPA 3: NÚCLEO CENTRAL "S" FACETADA DE ALTA INGENIERÍA -->
+        <g class="emblem-core-s">
+          <!-- Mitad Superior de la "S" -->
+          <!-- Faceta iluminada superior -->
+          <polygon points="98,44 148,62 100,62 64,76 64,64" fill="#FFFFFF"/>
+          <!-- Faceta sombreada bajo el brazo superior -->
+          <polygon points="148,62 134,72 100,68 100,62" fill="#52525B"/>
+
+          <!-- Diagonal Central de la "S" -->
+          <!-- Faceta superior izquierda (Luz) -->
+          <polygon points="64,64 100,62 136,112 100,114" fill="#E4E4E7"/>
+          <!-- Faceta inferior derecha (Sombra) -->
+          <polygon points="64,64 100,114 136,124 64,88" fill="#3F3F46"/>
+
+          <!-- Mitad Inferior de la "S" -->
+          <!-- Faceta iluminada del codo inferior -->
+          <polygon points="100,114 136,112 136,136 102,156 100,138" fill="#D4D4D8"/>
+          <!-- Faceta base inferior izquierda (Luz blanca) -->
+          <polygon points="102,156 52,138 66,128 100,138" fill="#FFFFFF"/>
+          <!-- Faceta de sombra interna inferior -->
+          <polygon points="52,138 66,128 100,132 100,138" fill="#27272A"/>
+
+          <!-- Aristas vectoriales nítidas sobre la "S" -->
+          <polygon 
+            points="98,44 148,62 134,72 100,68 82,78 136,112 136,136 102,156 52,138 66,128 100,132 118,122 64,88 64,64" 
+            fill="none" 
+            stroke="#FFFFFF" 
+            stroke-width="1.4" 
+            stroke-linejoin="miter"
+          />
+          <!-- Línea de pliegue central -->
+          <line x1="64" y1="64" x2="136" y2="136" stroke="rgba(255,255,255,0.55)" stroke-width="1"/>
+        </g>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- ========================================================================
        CAPAS DE FONDO ARQUITECTÓNICO (MICRO-GRID + SPOTLIGHT MONOCROMÁTICO)
        ======================================================================== -->
   <div class="fixed inset-0 architectural-grid pointer-events-none z-0"></div>
@@ -306,15 +489,11 @@
        ======================================================================== -->
   <header class="sticky top-4 z-40 px-4 sm:px-6 lg:px-8 w-full">
     <nav class="max-w-6xl mx-auto rounded-full border border-white/15 bg-black/75 backdrop-blur-xl px-5 sm:px-7 py-3 flex items-center justify-between shadow-[0_10px_40px_rgba(0,0,0,0.85)]">
-      <!-- Marca izquierda: Emblema geométrico S + SYNDROME -->
+      <!-- Marca izquierda: Logo Unificado Web SYNDROME -->
       <a href="#inicio" class="flex items-center gap-3 group focus:outline-none">
-        <div class="w-8 h-8 flex items-center justify-center rounded-lg border border-white/20 bg-white/5 group-hover:border-white/60 transition-colors">
-          <!-- Emblema SVG Geométrico "S" (Escala Navbar) -->
-          <svg class="w-5 h-5 text-white" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <polygon points="32,4 56,18 46,24 32,16 18,24 32,32 56,46 32,60 8,46 18,40 32,48 46,40 32,32 8,18" stroke="currentColor" stroke-width="2.5" fill="rgba(255,255,255,0.08)"/>
-            <line x1="32" y1="4" x2="32" y2="16" stroke="currentColor" stroke-width="1.5"/>
-            <line x1="32" y1="48" x2="32" y2="60" stroke="currentColor" stroke-width="1.5"/>
-            <circle cx="32" cy="32" r="2.5" fill="#FFFFFF"/>
+        <div class="w-8 h-8 flex items-center justify-center rounded-lg border border-white/20 bg-white/5 group-hover:border-white/60 transition-colors p-0.5">
+          <svg class="w-6 h-6" aria-hidden="true">
+            <use href="#syndrome-emblem-layers"></use>
           </svg>
         </div>
         <span class="font-pixel text-base sm:text-lg tracking-wider text-white group-hover:text-zinc-200 transition-colors">
@@ -323,16 +502,19 @@
       </a>
 
       <!-- Enlaces derecha -->
-      <div class="flex items-center gap-5 sm:gap-8 text-xs sm:text-sm font-medium">
+      <div class="flex items-center gap-4 sm:gap-7 text-xs sm:text-sm font-medium">
         <a href="#inicio" class="text-white border-b border-white pb-0.5 transition-opacity hover:opacity-80">
           Inicio
         </a>
         <a href="#software" class="text-zinc-400 hover:text-white transition-colors hidden sm:inline-block">
           Software
         </a>
-        <a href="#caracteristicas" class="text-zinc-400 hover:text-white transition-colors hidden md:inline-block">
-          Arquitectura
+        <a href="#faq" class="text-zinc-400 hover:text-white transition-colors hidden sm:inline-block">
+          FAQ
         </a>
+        <button type="button" onclick="openChangelogModal('remote')" class="text-zinc-400 hover:text-white transition-colors hidden md:inline-block cursor-pointer">
+          Versiones
+        </button>
         <button type="button" onclick="openSupportModal()" class="text-zinc-400 hover:text-white transition-colors cursor-pointer">
           Soporte
         </button>
@@ -346,7 +528,7 @@
   <main class="flex-grow relative z-10 max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 pb-16">
 
     <!-- ======================================================================
-         SECCIÓN HERO CENTRAL (EMBLEMA S + TÍTULO + DESCRIPCIÓN)
+         SECCIÓN HERO CENTRAL (EMBLEMA HEXAGONAL INTERACTIVO + TÍTULO)
          ====================================================================== -->
     <section id="inicio" class="text-center max-w-3xl mx-auto mb-12 sm:mb-16 reveal-item">
       <!-- Indicador técnico superior -->
@@ -357,60 +539,30 @@
         </span>
       </div>
 
-      <!-- Emblema Geométrico "S" de Alta Precisión -->
+      <!-- Emblema Hexagonal Segmentado "S" con Micro-Animación Interactiva -->
       <div class="flex justify-center mb-5">
-        <div class="relative w-24 h-24 sm:w-28 sm:h-28 flex items-center justify-center">
-          <!-- Anillo orbital técnico sutil -->
-          <svg class="absolute inset-0 w-full h-full text-white/20" viewBox="0 0 120 120" fill="none">
-            <circle cx="60" cy="60" r="56" stroke="currentColor" stroke-width="1" stroke-dasharray="4 6"/>
-            <line x1="60" y1="0" x2="60" y2="8" stroke="#FFFFFF" stroke-width="1.5"/>
-            <line x1="60" y1="112" x2="60" y2="120" stroke="#FFFFFF" stroke-width="1.5"/>
-            <line x1="0" y1="60" x2="8" y2="60" stroke="#FFFFFF" stroke-width="1.5"/>
-            <line x1="112" y1="60" x2="120" y2="60" stroke="#FFFFFF" stroke-width="1.5"/>
+        <button 
+          type="button"
+          id="hero-emblem-btn"
+          onclick="triggerHeroEmblemPulse()"
+          title="Núcleo SYNDROME"
+          aria-label="Emblema interactivo SYNDROME"
+          class="hero-emblem-wrapper relative w-28 h-28 sm:w-32 sm:h-32 flex items-center justify-center cursor-pointer focus:outline-none group"
+        >
+          <!-- Anillo orbital técnico exterior -->
+          <svg class="emblem-reticle-ring absolute inset-0 w-full h-full text-white/25 pointer-events-none" viewBox="0 0 120 120" fill="none">
+            <circle cx="60" cy="60" r="57" stroke="currentColor" stroke-width="1" stroke-dasharray="3 7"/>
+            <line x1="60" y1="0" x2="60" y2="6" stroke="#FFFFFF" stroke-width="1.5"/>
+            <line x1="60" y1="114" x2="60" y2="120" stroke="#FFFFFF" stroke-width="1.5"/>
+            <line x1="0" y1="60" x2="6" y2="60" stroke="#FFFFFF" stroke-width="1.5"/>
+            <line x1="114" y1="60" x2="120" y2="60" stroke="#FFFFFF" stroke-width="1.5"/>
           </svg>
 
-          <!-- Logotipo Vectorial Principal "S" Wireframe & Sólido -->
-          <svg class="w-20 h-20 sm:w-24 sm:h-24 emblem-glow" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="syndromeSilver" x1="15" y1="10" x2="85" y2="90" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stop-color="#FFFFFF"/>
-                <stop offset="50%" stop-color="#D4D4D8"/>
-                <stop offset="100%" stop-color="#71717A"/>
-              </linearGradient>
-              <linearGradient id="syndromeCore" x1="20" y1="20" x2="80" y2="80" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stop-color="rgba(255,255,255,0.22)"/>
-                <stop offset="100%" stop-color="rgba(255,255,255,0.03)"/>
-              </linearGradient>
-            </defs>
-
-            <!-- Hexágono estructural de soporte -->
-            <polygon points="50,6 88,28 88,72 50,94 12,72 12,28" stroke="rgba(255,255,255,0.22)" stroke-width="1" fill="none"/>
-
-            <!-- Geometría principal de la letra "S" afilada -->
-            <polygon 
-              points="50,14 78,30 65,38 50,29 33,39 67,59 50,86 22,70 35,62 50,71 67,61 33,41" 
-              fill="url(#syndromeCore)" 
-              stroke="url(#syndromeSilver)" 
-              stroke-width="2.4" 
-              stroke-linejoin="miter"
-            />
-
-            <!-- Trazos internos de plano técnico (Blueprint) -->
-            <line x1="50" y1="14" x2="50" y2="29" stroke="#FFFFFF" stroke-width="1.2"/>
-            <line x1="50" y1="71" x2="50" y2="86" stroke="#FFFFFF" stroke-width="1.2"/>
-            <line x1="33" y1="39" x2="67" y2="61" stroke="rgba(255,255,255,0.45)" stroke-width="1"/>
-            <line x1="65" y1="38" x2="35" y2="62" stroke="rgba(255,255,255,0.25)" stroke-width="1" stroke-dasharray="2 2"/>
-
-            <!-- Nodos de precisión en vértices clave -->
-            <circle cx="50" cy="14" r="2.2" fill="#FFFFFF"/>
-            <circle cx="78" cy="30" r="2.2" fill="#FFFFFF"/>
-            <circle cx="33" cy="39" r="2" fill="#FFFFFF"/>
-            <circle cx="50" cy="50" r="2.8" fill="#FFFFFF"/>
-            <circle cx="67" cy="61" r="2" fill="#FFFFFF"/>
-            <circle cx="22" cy="70" r="2.2" fill="#FFFFFF"/>
-            <circle cx="50" cy="86" r="2.2" fill="#FFFFFF"/>
+          <!-- Logotipo Vectorial Unificado SYNDROME -->
+          <svg class="hero-emblem-svg w-24 h-24 sm:w-28 sm:h-28" aria-hidden="true">
+            <use href="#syndrome-emblem-layers"></use>
           </svg>
-        </div>
+        </button>
       </div>
 
       <!-- Título Principal Pixel-Tech -->
@@ -445,10 +597,9 @@
         <span class="corner-bracket corner-br"></span>
 
         <div>
-          <!-- Encabezado de la Tarjeta -->
+          <!-- Encabezado de la Tarjeta (Icono propio de App Móvil) -->
           <div class="flex items-start justify-between gap-4 pb-6 mb-6 border-b border-white/10">
             <div class="flex items-center gap-4">
-              <!-- Icono Monocromático Smartphone -->
               <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-white/[0.04] border border-white/20 flex items-center justify-center shrink-0 shadow-inner">
                 <svg class="w-6 h-6 sm:w-7 sm:h-7 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                   <rect x="6" y="2" width="12" height="20" rx="2.5" ry="2.5"></rect>
@@ -466,10 +617,16 @@
               </div>
             </div>
 
-            <!-- Etiqueta de compilación -->
-            <span class="font-mono text-[10px] px-2.5 py-1 rounded border border-white/15 bg-white/[0.03] text-zinc-300 shrink-0">
-              APK // BETA
-            </span>
+            <!-- Botón de versión interactivo (Abre Historial de Versiones) -->
+            <button 
+              type="button"
+              onclick="openChangelogModal('remote')"
+              title="Ver historial de versiones de WebSISS Remote"
+              class="font-mono text-[10px] px-2.5 py-1 rounded border border-white/20 hover:border-white bg-white/[0.04] hover:bg-white/10 text-zinc-200 hover:text-white transition-colors shrink-0 cursor-pointer flex items-center gap-1.5"
+            >
+              <span>APK // v1.0-BETA</span>
+              <span class="text-zinc-400">▾</span>
+            </button>
           </div>
 
           <!-- Lista de Características con viñetas de estrella de 4 puntas (✦) -->
@@ -538,10 +695,9 @@
         <span class="corner-bracket corner-br"></span>
 
         <div>
-          <!-- Encabezado de la Tarjeta -->
+          <!-- Encabezado de la Tarjeta (Icono propio de Programa PC) -->
           <div class="flex items-start justify-between gap-4 pb-6 mb-6 border-b border-white/10">
             <div class="flex items-center gap-4">
-              <!-- Icono Monocromático Monitor / Terminal Escritorio -->
               <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-white/[0.04] border border-white/20 flex items-center justify-center shrink-0 shadow-inner">
                 <svg class="w-6 h-6 sm:w-7 sm:h-7 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                   <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
@@ -561,10 +717,16 @@
               </div>
             </div>
 
-            <!-- Etiqueta de compilación -->
-            <span class="font-mono text-[10px] px-2.5 py-1 rounded border border-white/15 bg-white/[0.03] text-zinc-300 shrink-0">
-              EXE // BETA
-            </span>
+            <!-- Botón de versión interactivo (Abre Historial de Versiones) -->
+            <button 
+              type="button"
+              onclick="openChangelogModal('pc')"
+              title="Ver historial de versiones de WebSISS Bot PC"
+              class="font-mono text-[10px] px-2.5 py-1 rounded border border-white/20 hover:border-white bg-white/[0.04] hover:bg-white/10 text-zinc-200 hover:text-white transition-colors shrink-0 cursor-pointer flex items-center gap-1.5"
+            >
+              <span>EXE // v1.0-BETA</span>
+              <span class="text-zinc-400">▾</span>
+            </button>
           </div>
 
           <!-- Lista de Características con viñetas de estrella de 4 puntas (✦) -->
@@ -625,9 +787,9 @@
     </section>
 
     <!-- ======================================================================
-         SECCIÓN INFERIOR: CARACTERÍSTICAS PRINCIPALES (4 COLUMNAS MONOCROMO)
+         SECCIÓN DE CARACTERÍSTICAS PRINCIPALES (4 COLUMNAS MONOCROMO)
          ====================================================================== -->
-    <section id="caracteristicas" class="reveal-item">
+    <section id="caracteristicas" class="mb-16 sm:mb-20 reveal-item">
       <div class="text-center mb-8 sm:mb-10">
         <h2 class="font-pixel text-xl sm:text-2xl tracking-[0.1em] text-white uppercase">
           CARACTERÍSTICAS PRINCIPALES
@@ -701,6 +863,32 @@
           </p>
         </div>
 
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         SECCIÓN DE PREGUNTAS FRECUENTES (FAQ DIVIDIDO POR APLICACIÓN)
+         Escalable por pestañas: agregar una 3ra app añade su pestaña automáticamente
+         ====================================================================== -->
+    <section id="faq" class="max-w-4xl mx-auto reveal-item">
+      <div class="text-center mb-7 sm:mb-9">
+        <span class="font-mono text-[10px] tracking-[0.22em] text-zinc-400 uppercase">
+          BASE DE CONOCIMIENTO // SOPORTE TÉCNICO
+        </span>
+        <h2 class="font-pixel text-xl sm:text-2xl tracking-[0.1em] text-white uppercase mt-1.5">
+          PREGUNTAS FRECUENTES
+        </h2>
+        <div class="w-16 h-[1px] bg-white/30 mx-auto mt-3"></div>
+      </div>
+
+      <!-- Selector de Pestañas por Software -->
+      <div id="faq-tabs" class="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 mb-6">
+        <!-- Se genera dinámicamente desde SOFTWARE_DATA -->
+      </div>
+
+      <!-- Contenedor de Acordeón de Preguntas -->
+      <div id="faq-list" class="space-y-3">
+        <!-- Se genera dinámicamente según la pestaña activa -->
       </div>
     </section>
 
@@ -862,7 +1050,45 @@
   </div>
 
   <!-- ========================================================================
-       MODAL 2: VISOR LIGHTBOX DE CAPTURAS EN ALTA CALIDAD
+       MODAL 2: HISTORIAL DE VERSIONES / CHANGELOG POR SOFTWARE
+       ======================================================================== -->
+  <div id="changelog-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md opacity-0 transition-opacity duration-300" aria-hidden="true">
+    <div id="changelog-panel" class="relative w-full max-w-2xl rounded-2xl border border-white/25 bg-[#0A0A0D] shadow-[0_0_80px_rgba(0,0,0,0.95)] overflow-hidden transform scale-95 transition-transform duration-300">
+      <div class="h-[2px] w-full bg-gradient-to-r from-transparent via-white to-transparent"></div>
+
+      <!-- Cabecera -->
+      <div class="flex items-center justify-between px-5 sm:px-6 py-4 border-b border-white/10 bg-white/[0.02]">
+        <div class="flex items-center gap-2.5">
+          <span class="font-mono text-[10px] sm:text-[11px] px-2 py-0.5 border border-white/30 text-white uppercase tracking-widest">
+            CHANGELOG
+          </span>
+          <span class="font-pixel text-xs sm:text-sm text-white">HISTORIAL DE VERSIONES</span>
+        </div>
+        <button type="button" onclick="closeChangelogModal()" class="w-8 h-8 rounded-lg border border-white/15 hover:border-white flex items-center justify-center text-zinc-400 hover:text-white transition-colors cursor-pointer" aria-label="Cerrar historial">
+          ✕
+        </button>
+      </div>
+
+      <!-- Pestañas por Software -->
+      <div id="changelog-tabs" class="flex flex-wrap gap-2 px-5 sm:px-6 pt-4 pb-2 border-b border-white/10 bg-black/40">
+        <!-- Se genera dinámicamente desde SOFTWARE_DATA -->
+      </div>
+
+      <!-- Lista de Versiones -->
+      <div id="changelog-body" class="p-5 sm:p-6 max-h-[68vh] overflow-y-auto space-y-5">
+        <!-- Se rellena dinámicamente con JS -->
+      </div>
+
+      <div class="px-5 sm:px-6 py-3.5 border-t border-white/10 bg-white/[0.01] flex justify-end">
+        <button type="button" onclick="closeChangelogModal()" class="btn-metallic-secondary rounded-xl py-2.5 px-5 font-pixel text-xs uppercase cursor-pointer">
+          CERRAR
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL 3: VISOR LIGHTBOX DE CAPTURAS EN ALTA CALIDAD
        ======================================================================== -->
   <div id="lightbox-modal" class="fixed inset-0 z-[60] hidden items-center justify-center p-4 bg-black/95 backdrop-blur-lg opacity-0 transition-opacity duration-250" aria-hidden="true">
     <div id="lightbox-panel" class="relative max-w-2xl w-full flex flex-col items-center transform scale-95 transition-transform duration-250">
@@ -879,7 +1105,7 @@
   </div>
 
   <!-- ========================================================================
-       MODAL 3: HUD TÁCTICO DE DESCARGA ("DESCARGAR" — FASE BETA)
+       MODAL 4: HUD TÁCTICO DE DESCARGA ("DESCARGAR" — FASE BETA)
        ======================================================================== -->
   <div id="download-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/85 backdrop-blur-md opacity-0 transition-opacity duration-300" aria-hidden="true">
     <div id="download-panel" class="relative w-full max-w-md rounded-2xl border border-white/30 bg-[#0A0A0D] p-6 shadow-[0_0_60px_rgba(255,255,255,0.08)] transform scale-95 transition-transform duration-300">
@@ -940,7 +1166,7 @@
   </div>
 
   <!-- ========================================================================
-       MODAL 4: CANAL DE SOPORTE TÉCNICO & TOKENS ("SOPORTE")
+       MODAL 5: CANAL DE SOPORTE TÉCNICO & TOKENS ("SOPORTE")
        ======================================================================== -->
   <div id="support-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/85 backdrop-blur-md opacity-0 transition-opacity duration-300" aria-hidden="true">
     <div id="support-panel" class="relative w-full max-w-md rounded-2xl border border-white/25 bg-[#0A0A0D] p-6 shadow-2xl transform scale-95 transition-transform duration-300">
@@ -978,7 +1204,7 @@
   </div>
 
   <!-- ========================================================================
-       LÓGICA INTERACTIVA (SPOTLIGHT, EXPEDIENTES, LIGHTBOX, SIMULADOR Y HUD)
+       LÓGICA INTERACTIVA (SPOTLIGHT, EMBLEMA HERO, EXPEDIENTES, FAQ Y CHANGELOG)
        ======================================================================== -->
   <script>
     // 1. Efecto Spotlight dinámico que sigue el ratón sobre la cuadrícula
@@ -987,33 +1213,29 @@
       document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
     });
 
-    // 2. Animación de aparición progresiva (Scroll Reveal)
-    document.addEventListener('DOMContentLoaded', () => {
-      const revealItems = document.querySelectorAll('.reveal-item');
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.12 });
+    // 2. Micro-animación táctil en el emblema del Hero (para móviles y clics)
+    function triggerHeroEmblemPulse() {
+      const wrapper = document.getElementById('hero-emblem-btn');
+      if (!wrapper) return;
+      wrapper.classList.add('is-activated');
+      setTimeout(() => {
+        wrapper.classList.remove('is-activated');
+      }, 950);
+    }
 
-      revealItems.forEach((item) => observer.observe(item));
-    });
-
-    // 3. Base de datos técnica completa de WEBSISS REMOTE y WEBSISS BOT PC
-    // NOTA: Cuando publiques los ejecutables en GitHub Releases, pega sus URLs en "downloadUrl"
+    // 3. Base de datos técnica escalable del ecosistema SYNDROME
+    // Para añadir una 3ra aplicación en el futuro, solo agrega una nueva clave aquí.
     const SOFTWARE_DATA = {
       remote: {
         code: 'SYS-MOB // 01',
         title: 'WEBSISS REMOTE',
+        shortTab: 'WEBSISS REMOTE (APP)',
         subtitle: 'Aplicación Móvil Oficial — Android (APK)',
         description:
           'WEBSISS REMOTE es el centro de mando móvil diseñado para darte control absoluto sobre el proceso de inscripción sin necesidad de estar pegado a la computadora. Conectada a la nube mediante Firebase, la app te permite guardar y gestionar tus credenciales del sistema SIS, definir las materias y grupos que deseas inscribir, administrar tus tokens y supervisar la consola de comandos de la PC en tiempo real. Si el servidor de la universidad se cae o la PC completa una tarea, la app te enviará una notificación push instantánea a tu pantalla de bloqueo.',
         filename: 'WebSISS-Remote-v1.0-Beta.apk',
         size: 'Android 8.0+ • Fase Beta',
-        downloadUrl: '', // Ejemplo futuro: 'https://github.com/devstudiohs23/syndrome-ecosystem/releases/download/v1.0/WebSISS-Remote.apk'
+        downloadUrl: '',
         specs: [
           { label: 'PLATAFORMA', value: 'Android 8.0+' },
           { label: 'NUBE & SYNC', value: 'Firebase' },
@@ -1045,17 +1267,48 @@
           { src: 'config.png', label: '02. Configuración SIS' },
           { src: 'panel.png', label: '03. Panel de Control' }
         ],
-        placeholders: []
+        placeholders: [],
+        faqs: [
+          {
+            q: '¿Es obligatorio iniciar sesión con el mismo correo en la app y en la PC?',
+            a: 'Sí. Ambos sistemas utilizan tu cuenta de correo vinculada en Firebase como puente privado para sincronizar tus credenciales SIS, materias programadas y órdenes de encendido o detención.'
+          },
+          {
+            q: '¿Cómo solicito y activo mi llave de acceso para usar el bot?',
+            a: 'Dentro de la tienda de la aplicación seleccionas el combo que necesites y coordinas la validación directamente por WhatsApp (+591 77836344). Una vez habilitada tu llave, podrás iniciar la ejecución.'
+          },
+          {
+            q: '¿Debo mantener la app abierta en pantalla mientras el bot trabaja?',
+            a: 'No es necesario. Una vez que envías la orden de inicio desde el Panel de Control, el motor en tu computadora trabaja de forma independiente y la app te enviará una notificación push cuando asegure una materia o ocurra un evento.'
+          },
+          {
+            q: '¿Qué tan seguros están mi código SIS y mis códigos dinámicos?',
+            a: 'Tus datos se almacenan bajo tu propio usuario autenticado en Firebase con comunicación cifrada SSL/TLS. Ningún tercero tiene acceso a tus credenciales.'
+          }
+        ],
+        changelog: [
+          {
+            version: 'v1.0-BETA',
+            date: 'Noviembre 2026',
+            status: 'ACTUAL // FASE BETA',
+            changes: [
+              { tag: 'NUEVO', text: 'Lanzamiento inicial del cliente Android con interfaz oscura monocromática.' },
+              { tag: 'NUEVO', text: 'Sincronización en tiempo real de datos SIS, códigos dinámicos y targets con Firebase.' },
+              { tag: 'NUEVO', text: 'Panel de control remoto (Iniciar / Detener) y recepción de alertas push instantáneas.' }
+            ]
+          }
+        ]
       },
       pc: {
         code: 'SYS-WIN // 02',
         title: 'WEBSISS BOT PC',
+        shortTab: 'WEBSISS BOT PC (WINDOWS)',
         subtitle: 'Programa de Escritorio — Windows x64 (EXE)',
         description:
           'WEBSISS BOT PC es el motor ejecutable de alta velocidad para Windows que realiza todo el trabajo pesado de automatización. Diseñado con una interfaz idéntica a la app móvil pero potenciado con una consola de registros en tiempo real, el programa abre la página oficial de Websiss, ingresa tus datos, resuelve el CAPTCHA autónomamente y busca el cupo deseado sin descanso. Funciona en segundo plano sin ralentizar tu computadora y se vincula automáticamente con tu teléfono celular.',
         filename: 'WebSISS-Bot-PC-v1.0-Beta.exe',
         size: 'Windows 10/11 • Fase Beta',
-        downloadUrl: '', // Ejemplo futuro: 'https://github.com/devstudiohs23/syndrome-ecosystem/releases/download/v1.0/WebSISS-Bot-PC.exe'
+        downloadUrl: '',
         specs: [
           { label: 'PLATAFORMA', value: 'Windows 10/11' },
           { label: 'CAPTCHA', value: 'Auto-Resuelto' },
@@ -1097,15 +1350,192 @@
             title: 'Ejecución y Consola en Tiempo Real',
             subtitle: 'Monitoreo activo de CAPTCHA y búsqueda continua de cupos — Captura en preparación (Fase Beta)'
           }
+        ],
+        faqs: [
+          {
+            q: '¿Mi computadora debe quedarse encendida mientras busca cupos?',
+            a: 'Sí. WEBSISS BOT PC ejecuta el motor de automatización directamente en tu Windows 10/11, por lo que el equipo debe permanecer encendido, sin suspenderse y con conexión a Internet.'
+          },
+          {
+            q: '¿Qué sucede si el servidor de WebSISS se satura o cierra mi sesión?',
+            a: 'El programa detecta automáticamente cualquier caída o cierre de sesión, vuelve a ingresar tus datos SIS, resuelve nuevamente el CAPTCHA y retoma la búsqueda sin que tengas que intervenir.'
+          },
+          {
+            q: '¿Cómo funciona el orden de prioridad si pongo varias materias?',
+            a: 'El bot respeta estrictamente el orden en que añadiste tus targets: concentrará el 100% de sus intentos en la Materia N° 1 hasta inscribirla; recién después pasará a la Materia N° 2, y así sucesivamente.'
+          },
+          {
+            q: '¿Puedo controlar el programa directamente desde la PC sin usar el celular?',
+            a: 'Sí. Aunque está diseñado para sincronizarse con WEBSISS REMOTE, también puedes editar tus datos, añadir targets e iniciar o detener el bot directamente desde la ventana de Windows.'
+          }
+        ],
+        changelog: [
+          {
+            version: 'v1.0-BETA',
+            date: 'Noviembre 2026',
+            status: 'ACTUAL // FASE BETA',
+            changes: [
+              { tag: 'NUEVO', text: 'Motor de escritorio para Windows 10/11 con consola de registros en tiempo real.' },
+              { tag: 'NUEVO', text: 'Resolución autónoma de CAPTCHA, bucle de búsqueda continua y cola de prioridad estricta.' },
+              { tag: 'MEJORA', text: 'Sistema de auto-reingreso ante caídas de sesión y doble alerta (sonora en PC + Push móvil).' }
+            ]
+          }
         ]
       }
     };
 
     let currentDossierKey = 'remote';
+    let currentFaqTab = 'remote';
+    let currentChangelogTab = 'remote';
     let simTimer = null;
     let dlTimer = null;
 
-    // 4. Control del Modal "VER MÁS" (Expediente Técnico)
+    // 4. Inicialización de Scroll Reveal, FAQ por pestañas y Changelog
+    document.addEventListener('DOMContentLoaded', () => {
+      const revealItems = document.querySelectorAll('.reveal-item');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      revealItems.forEach((item) => observer.observe(item));
+
+      renderFaqSection('remote');
+    });
+
+    // 5. Renderizado de Preguntas Frecuentes (FAQ) por aplicación
+    function renderFaqSection(activeKey) {
+      currentFaqTab = activeKey;
+      const keys = Object.keys(SOFTWARE_DATA);
+      const tabsContainer = document.getElementById('faq-tabs');
+      const listContainer = document.getElementById('faq-list');
+
+      tabsContainer.innerHTML = keys.map(k => {
+        const item = SOFTWARE_DATA[k];
+        const isActive = k === activeKey;
+        return `
+          <button 
+            type="button"
+            onclick="renderFaqSection('${k}')"
+            class="tab-pill ${isActive ? 'active' : ''} rounded-xl px-4 py-2.5 font-mono text-xs tracking-wider uppercase cursor-pointer"
+          >
+            ${item.shortTab}
+          </button>
+        `;
+      }).join('');
+
+      const faqs = SOFTWARE_DATA[activeKey].faqs || [];
+      listContainer.innerHTML = faqs.map((faq, idx) => `
+        <div class="faq-item rounded-xl overflow-hidden ${idx === 0 ? 'open' : ''}">
+          <button 
+            type="button"
+            onclick="toggleFaqItem(this)"
+            class="w-full px-5 py-4 text-left flex items-center justify-between gap-4 cursor-pointer focus:outline-none"
+          >
+            <span class="text-sm sm:text-[15px] font-medium text-white">${faq.q}</span>
+            <span class="faq-icon font-mono text-base text-zinc-400 shrink-0 transition-transform duration-200">${idx === 0 ? '−' : '+'}</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              <div class="px-5 pb-4 pt-1 text-xs sm:text-sm text-zinc-400 leading-relaxed border-t border-white/5">
+                ${faq.a}
+              </div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function toggleFaqItem(btn) {
+      const card = btn.closest('.faq-item');
+      const icon = btn.querySelector('.faq-icon');
+      const isOpen = card.classList.contains('open');
+      if (isOpen) {
+        card.classList.remove('open');
+        icon.textContent = '+';
+      } else {
+        card.classList.add('open');
+        icon.textContent = '−';
+      }
+    }
+
+    // 6. Control del Modal de Historial de Versiones (Changelog por Software)
+    function openChangelogModal(initialKey) {
+      renderChangelogContent(initialKey || currentChangelogTab);
+      const modal = document.getElementById('changelog-modal');
+      const panel = document.getElementById('changelog-panel');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      requestAnimationFrame(() => {
+        modal.classList.remove('opacity-0');
+        panel.classList.remove('scale-95');
+        panel.classList.add('scale-100');
+      });
+    }
+
+    function renderChangelogContent(activeKey) {
+      currentChangelogTab = activeKey;
+      const keys = Object.keys(SOFTWARE_DATA);
+      const tabsEl = document.getElementById('changelog-tabs');
+      const bodyEl = document.getElementById('changelog-body');
+
+      tabsEl.innerHTML = keys.map(k => {
+        const item = SOFTWARE_DATA[k];
+        const isActive = k === activeKey;
+        return `
+          <button 
+            type="button"
+            onclick="renderChangelogContent('${k}')"
+            class="tab-pill ${isActive ? 'active' : ''} rounded-lg px-3.5 py-2 font-mono text-[11px] tracking-wider uppercase cursor-pointer"
+          >
+            ${item.title}
+          </button>
+        `;
+      }).join('');
+
+      const entries = SOFTWARE_DATA[activeKey].changelog || [];
+      bodyEl.innerHTML = entries.map(entry => `
+        <div class="rounded-xl border border-white/15 bg-black/60 p-4 sm:p-5">
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-3 mb-3 border-b border-white/10">
+            <div class="flex items-center gap-2.5">
+              <span class="font-pixel text-sm sm:text-base text-white">${entry.version}</span>
+              <span class="font-mono text-[10px] px-2 py-0.5 rounded border border-white/30 bg-white/10 text-white">
+                ${entry.status}
+              </span>
+            </div>
+            <span class="font-mono text-xs text-zinc-400">${entry.date}</span>
+          </div>
+          <ul class="space-y-2.5 text-xs sm:text-sm text-zinc-300">
+            ${entry.changes.map(c => `
+              <li class="flex items-start gap-2.5">
+                <span class="font-mono text-[10px] px-1.5 py-0.5 rounded border border-white/20 bg-white/[0.04] text-white shrink-0 mt-0.5">
+                  ${c.tag}
+                </span>
+                <span>${c.text}</span>
+              </li>
+            `).join('')}
+          </ul>
+        </div>
+      `).join('');
+    }
+
+    function closeChangelogModal() {
+      const modal = document.getElementById('changelog-modal');
+      const panel = document.getElementById('changelog-panel');
+      modal.classList.add('opacity-0');
+      panel.classList.remove('scale-100');
+      panel.classList.add('scale-95');
+      setTimeout(() => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }, 250);
+    }
+
+    // 7. Control del Modal "VER MÁS" (Expediente Técnico)
     function openDossier(key) {
       currentDossierKey = key;
       const data = SOFTWARE_DATA[key];
@@ -1232,7 +1662,7 @@
       }, 280);
     }
 
-    // 5. Visor Lightbox para ampliar imágenes
+    // 8. Visor Lightbox para ampliar imágenes
     function openLightbox(src, label) {
       const modal = document.getElementById('lightbox-modal');
       const panel = document.getElementById('lightbox-panel');
@@ -1260,7 +1690,7 @@
       }, 220);
     }
 
-    // 6. Simulador de consola en vivo dentro del Expediente Técnico
+    // 9. Simulador de consola en vivo dentro del Expediente Técnico
     function runTelemetrySimulation() {
       const data = SOFTWARE_DATA[currentDossierKey];
       const consoleEl = document.getElementById('telemetry-console');
@@ -1289,7 +1719,7 @@
       }, 420);
     }
 
-    // 7. Control del HUD de Descarga ("DESCARGAR" — Preparado para Fase Beta y Releases futuros)
+    // 10. Control del HUD de Descarga ("DESCARGAR" — Preparado para Fase Beta y Releases futuros)
     function startDownload(key) {
       const data = SOFTWARE_DATA[key];
       if (!data) return;
@@ -1361,7 +1791,7 @@
       }, 250);
     }
 
-    // 8. Control del Modal de Soporte y copiado moderno con respaldo móvil
+    // 11. Control del Modal de Soporte y copiado moderno con respaldo móvil
     function openSupportModal() {
       const modal = document.getElementById('support-modal');
       const panel = document.getElementById('support-panel');
@@ -1419,17 +1849,19 @@
           return;
         }
         closeDossier();
+        closeChangelogModal();
         closeDownloadModal();
         closeSupportModal();
       }
     });
 
-    ['dossier-modal', 'lightbox-modal', 'download-modal', 'support-modal'].forEach((id) => {
+    ['dossier-modal', 'changelog-modal', 'lightbox-modal', 'download-modal', 'support-modal'].forEach((id) => {
       const el = document.getElementById(id);
       el.addEventListener('click', (e) => {
         if (e.target === el) {
           if (id === 'lightbox-modal') closeLightbox();
           if (id === 'dossier-modal') closeDossier();
+          if (id === 'changelog-modal') closeChangelogModal();
           if (id === 'download-modal') closeDownloadModal();
           if (id === 'support-modal') closeSupportModal();
         }
