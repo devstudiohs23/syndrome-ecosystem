@@ -586,7 +586,7 @@
          ====================================================================== -->
     <section id="software" class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 mb-16 sm:mb-20">
 
-      <!-- TARJETA 1 (IZQUIERDA): WEBSISS REMOTE (App Móvil) -->
+      <!-- TARJETA 1 (IZQUIERDA): WEBSISS REMOTE (App Móvil — PUBLICADA) -->
       <article class="syndrome-card rounded-2xl p-6 sm:p-8 flex flex-col justify-between reveal-item" data-software="remote">
         <!-- Haz de escaneo láser animado -->
         <div class="scanner-beam"></div>
@@ -617,14 +617,15 @@
               </div>
             </div>
 
-            <!-- Botón de versión interactivo (Abre Historial de Versiones) -->
+            <!-- Botón de versión interactivo con indicador activo en línea -->
             <button 
               type="button"
               onclick="openChangelogModal('remote')"
               title="Ver historial de versiones de WebSISS Remote"
-              class="font-mono text-[10px] px-2.5 py-1 rounded border border-white/20 hover:border-white bg-white/[0.04] hover:bg-white/10 text-zinc-200 hover:text-white transition-colors shrink-0 cursor-pointer flex items-center gap-1.5"
+              class="font-mono text-[10px] px-2.5 py-1 rounded border border-white/35 hover:border-white bg-white/[0.06] hover:bg-white/10 text-white transition-colors shrink-0 cursor-pointer flex items-center gap-1.5"
             >
-              <span>APK // v1.0-BETA</span>
+              <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+              <span>APK // v1.0.0-BETA.2</span>
               <span class="text-zinc-400">▾</span>
             </button>
           </div>
@@ -1105,7 +1106,7 @@
   </div>
 
   <!-- ========================================================================
-       MODAL 4: HUD TÁCTICO DE DESCARGA ("DESCARGAR" — FASE BETA)
+       MODAL 4: HUD TÁCTICO DE DESCARGA ("DESCARGAR" — APK OFICIAL + BETA PC)
        ======================================================================== -->
   <div id="download-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/85 backdrop-blur-md opacity-0 transition-opacity duration-300" aria-hidden="true">
     <div id="download-panel" class="relative w-full max-w-md rounded-2xl border border-white/30 bg-[#0A0A0D] p-6 shadow-[0_0_60px_rgba(255,255,255,0.08)] transform scale-95 transition-transform duration-300">
@@ -1121,11 +1122,11 @@
       <div class="rounded-xl border border-white/15 bg-black/70 p-4 mb-5">
         <div class="font-mono text-xs text-zinc-400">PAQUETE SELECCIONADO:</div>
         <div id="dl-filename" class="font-mono text-sm text-white font-semibold mt-0.5 break-all">
-          WebSISS-Bot-PC-v1.0-Windows.exe
+          WebSISS-Remote-v1.0.0-beta.2.apk
         </div>
         <div class="flex items-center justify-between text-[11px] font-mono text-zinc-500 mt-2">
-          <span id="dl-size">REPOSITORIO: syndrome-ecosystem</span>
-          <span>ESTADO: FASE BETA</span>
+          <span id="dl-size">ENTORNO: Android 8.0+</span>
+          <span id="dl-release-tag">ESTADO: VERIFICANDO</span>
         </div>
       </div>
 
@@ -1138,7 +1139,7 @@
         <div id="dl-progress-bar" class="h-full bg-white transition-all duration-150" style="width: 0%"></div>
       </div>
 
-      <!-- Contenedor de Enlace (Placeholder en Fase Beta o Enlace Real cuando lo agregues) -->
+      <!-- Contenedor de Enlace Pendiente (Para programas aún en preparación como PC) -->
       <div id="dl-placeholder-box" class="hidden rounded-xl border border-dashed border-white/30 bg-white/[0.03] p-3.5 mb-5 text-center">
         <div class="font-mono text-xs text-white font-semibold tracking-wider">
           ENLACE DE DESCARGA AQUÍ (PRÓXIMAMENTE)
@@ -1146,6 +1147,11 @@
         <p class="text-[11px] text-zinc-400 mt-1">
           Compilación final en preparación dentro de <span class="text-zinc-200 font-mono">syndrome-ecosystem</span>.
         </p>
+      </div>
+
+      <!-- Nota de Protocolo de Instalación Android (Visible al descargar APK) -->
+      <div id="dl-android-note" class="hidden rounded-xl border border-white/15 bg-white/[0.02] p-3.5 mb-5 font-mono text-[11px] text-zinc-400 leading-relaxed">
+        <span class="text-white font-semibold">PROTOCOLO ANDROID:</span> Si Chrome o Play Protect solicita confirmación al instalar el <span class="text-zinc-200">.apk</span>, selecciona <span class="text-white">"Descargar de todos modos"</span> e <span class="text-white">"Instalar de todas formas"</span>.
       </div>
 
       <div class="flex flex-col sm:flex-row justify-end gap-3">
@@ -1224,7 +1230,6 @@
     }
 
     // 3. Base de datos técnica escalable del ecosistema SYNDROME
-    // Para añadir una 3ra aplicación en el futuro, solo agrega una nueva clave aquí.
     const SOFTWARE_DATA = {
       remote: {
         code: 'SYS-MOB // 01',
@@ -1233,9 +1238,9 @@
         subtitle: 'Aplicación Móvil Oficial — Android (APK)',
         description:
           'WEBSISS REMOTE es el centro de mando móvil diseñado para darte control absoluto sobre el proceso de inscripción sin necesidad de estar pegado a la computadora. Conectada a la nube mediante Firebase, la app te permite guardar y gestionar tus credenciales del sistema SIS, definir las materias y grupos que deseas inscribir, administrar tus tokens y supervisar la consola de comandos de la PC en tiempo real. Si el servidor de la universidad se cae o la PC completa una tarea, la app te enviará una notificación push instantánea a tu pantalla de bloqueo.',
-        filename: 'WebSISS-Remote-v1.0-Beta.apk',
-        size: 'Android 8.0+ • Fase Beta',
-        downloadUrl: '',
+        filename: 'WebSISS-Remote-v1.0.0-beta.2.apk',
+        size: 'Android 8.0+ • Beta Oficial',
+        downloadUrl: 'https://github.com/devstudiohs23/syndrome-ecosystem/releases/download/v1.0.0-beta.2/WebSISS-Remote-v1.0.0-beta.2.apk',
         specs: [
           { label: 'PLATAFORMA', value: 'Android 8.0+' },
           { label: 'NUBE & SYNC', value: 'Firebase' },
@@ -1288,13 +1293,22 @@
         ],
         changelog: [
           {
+            version: 'v1.0.0-BETA.2',
+            date: 'Noviembre 2026',
+            status: 'DISPONIBLE // BETA OFICIAL',
+            changes: [
+              { tag: 'RELEASE', text: 'Publicación oficial del paquete APK instalable desde GitHub Releases.' },
+              { tag: 'MEJORA', text: 'Estabilidad reforzada en la vinculación con Firebase y notificaciones push FCM.' },
+              { tag: 'MEJORA', text: 'Optimización de respuesta en el envío de comandos remotos hacia WEBSISS BOT PC.' }
+            ]
+          },
+          {
             version: 'v1.0-BETA',
             date: 'Noviembre 2026',
-            status: 'ACTUAL // FASE BETA',
+            status: 'COMPILACIÓN INICIAL',
             changes: [
               { tag: 'NUEVO', text: 'Lanzamiento inicial del cliente Android con interfaz oscura monocromática.' },
-              { tag: 'NUEVO', text: 'Sincronización en tiempo real de datos SIS, códigos dinámicos y targets con Firebase.' },
-              { tag: 'NUEVO', text: 'Panel de control remoto (Iniciar / Detener) y recepción de alertas push instantáneas.' }
+              { tag: 'NUEVO', text: 'Sincronización en tiempo real de datos SIS, códigos dinámicos y targets con Firebase.' }
             ]
           }
         ]
@@ -1373,7 +1387,7 @@
           {
             version: 'v1.0-BETA',
             date: 'Noviembre 2026',
-            status: 'ACTUAL // FASE BETA',
+            status: 'EN PREPARACIÓN // FASE BETA',
             changes: [
               { tag: 'NUEVO', text: 'Motor de escritorio para Windows 10/11 con consola de registros en tiempo real.' },
               { tag: 'NUEVO', text: 'Resolución autónoma de CAPTCHA, bucle de búsqueda continua y cola de prioridad estricta.' },
@@ -1719,7 +1733,7 @@
       }, 420);
     }
 
-    // 10. Control del HUD de Descarga ("DESCARGAR" — Preparado para Fase Beta y Releases futuros)
+    // 10. Control del HUD de Descarga ("DESCARGAR" — APK Oficial y Releases futuros)
     function startDownload(key) {
       const data = SOFTWARE_DATA[key];
       if (!data) return;
@@ -1728,11 +1742,16 @@
 
       const ghLink = document.getElementById('dl-github-link');
       const placeholderBox = document.getElementById('dl-placeholder-box');
+      const androidNote = document.getElementById('dl-android-note');
+      const releaseTag = document.getElementById('dl-release-tag');
+
       ghLink.classList.add('hidden');
       placeholderBox.classList.add('hidden');
+      androidNote.classList.add('hidden');
 
       document.getElementById('dl-filename').textContent = data.filename;
       document.getElementById('dl-size').textContent = `ENTORNO: ${data.size}`;
+      releaseTag.textContent = 'ESTADO: VERIFICANDO';
       document.getElementById('dl-status-badge').textContent = 'VERIFICANDO';
       document.getElementById('dl-step-text').textContent = 'Consultando estado de compilación...';
       document.getElementById('dl-percent').textContent = '0%';
@@ -1757,12 +1776,18 @@
 
           if (data.downloadUrl && data.downloadUrl.trim() !== '') {
             document.getElementById('dl-status-badge').textContent = 'LISTO';
-            document.getElementById('dl-step-text').textContent = 'Enlace oficial verificado.';
+            document.getElementById('dl-step-text').textContent = 'Paquete oficial verificado en GitHub Releases.';
+            releaseTag.textContent = 'ESTADO: BETA OFICIAL';
             ghLink.href = data.downloadUrl;
+            ghLink.setAttribute('download', data.filename);
             ghLink.classList.remove('hidden');
+            if (key === 'remote') {
+              androidNote.classList.remove('hidden');
+            }
           } else {
             document.getElementById('dl-status-badge').textContent = 'FASE BETA';
             document.getElementById('dl-step-text').textContent = 'Archivo pendiente de publicación.';
+            releaseTag.textContent = 'ESTADO: EN PREPARACIÓN';
             placeholderBox.classList.remove('hidden');
           }
         } else if (progress > 55) {
